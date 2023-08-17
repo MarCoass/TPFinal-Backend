@@ -1,0 +1,14 @@
+COMO ALMACENAR ARRAYS 
+Crear la migracion normalmente y en el modelo definir
+protected $casts = [
+    'urlImagenes' => 'array',
+];
+El atributo $casts en un modelo de Eloquent en Laravel te permite especificar cómo se deben transformar los tipos de datos al recuperarlos y al guardarlos en la base de datos. Básicamente, te permite realizar conversiones automáticas de los valores de los atributos del modelo.
+
+Cuando defines un atributo en el arreglo $casts, Laravel se 
+asegura de que ese atributo se convierta al tipo de dato
+ especificado cada vez que lo recuperas del modelo. 
+ Esto es especialmente útil cuando deseas almacenar datos en 
+ un formato específico en la base de datos (por ejemplo, JSON 
+ o array) y luego automáticamente convertirlos 
+de nuevo a ese formato cuando los recuperas del modelo.
