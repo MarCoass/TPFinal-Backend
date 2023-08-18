@@ -12,6 +12,11 @@ class Controller extends BaseController
 
     public function ejemplo()
     {
-        return json_encode(['hola']);
+        $data = [
+            'message' => 'Hola desde Laravel',
+            'timestamp' => now(),
+        ];
+    
+        return response()->json($data);
     }
 }
