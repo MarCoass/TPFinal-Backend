@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('cotizacions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idUsuario');
-            $table->text('idSets')->nullable();
+            $table->json('idSets')->nullable();
             $table->integer('estado');
             $table->timestamps();
             $table->foreign('idUsuario')->references('id')->on('users');
+
         });
     }
 

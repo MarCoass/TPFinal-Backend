@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\FormularioController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +20,5 @@ Route::get('/', function () {
 });
 
 Route::get('/ejemplo', [Controller::class, 'ejemplo']);
+Route::get('/formulario', [FormularioController::class, 'index']);
+Route::post('/formulario/enviar', [FormularioController::class, 'enviar']);
