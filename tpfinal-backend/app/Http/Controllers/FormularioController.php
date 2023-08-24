@@ -19,10 +19,12 @@ class FormularioController extends Controller
     public function enviar(Request $request)
     {
         $telefonos = $request->input('telefonos');
-        
         $array = explode(",", $telefonos);
         
-       // print_r($array);
+        $data = $request->validate([
+            'id_setsFavoritos' => 'required|array', // Asegúrate de que sea un array
+            'id_setsFavoritos.*' => 'integer' // Asegúrate de que cada elemento sea un entero
+        ]);
 
         $response = [
             'success' => 'Formulario enviado correctamente',
