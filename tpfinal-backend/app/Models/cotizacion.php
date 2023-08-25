@@ -14,7 +14,7 @@ class Cotizacion extends Model
         'idSets' => 'array',
     ];
     //funciones por la clave foranea
-    public function categoria()
+    public function idUsuario()
     {
         return $this->belongsTo(User::class, 'idUsuario');
     }
