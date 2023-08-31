@@ -16,14 +16,18 @@ class Set extends Model
     ];
     
     //funciones por la clave foranea
-    public function categoria()
+    public function idCategoria()
     {
         return $this->belongsTo(CategoriaSet::class, 'idCategoria');
     }
 
-    public function ciudad()
+    public function idCiudad()
     {
         return $this->belongsTo(Ciudad::class, 'idCiudad');
+    }
+    public function idTips()
+    {
+        return $this->belongsTo(Tip::class, 'idTips');
     }
 
 }

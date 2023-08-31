@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\carrito;
 use Illuminate\Http\Request;
 
-class FormularioController extends Controller
+class Prueba extends Controller
 {
     public function index()
     {
@@ -20,7 +21,7 @@ class FormularioController extends Controller
     {
         $telefonos = $request->input('telefonos');
         $array = explode(",", $telefonos);
-        
+
         $data = $request->validate([
             'id_setsFavoritos' => 'required|array', // Asegúrate de que sea un array
             'id_setsFavoritos.*' => 'integer' // Asegúrate de que cada elemento sea un entero
@@ -30,7 +31,18 @@ class FormularioController extends Controller
             'success' => 'Formulario enviado correctamente',
             'telefonos' => $array
         ];
-     
+
         return redirect('/formulario')->with('response', $response);
+    }
+
+
+    //para guardar un array en la bd es asi
+    public function pruebaArray()
+    {
+        $carrito = new carrito();
+        $carrito->idUsuario = 1;
+        $carrito->idSets = [1,2,3];
+        $carrito->idKits = [1,2,3];
+        $carrito->save();
     }
 }

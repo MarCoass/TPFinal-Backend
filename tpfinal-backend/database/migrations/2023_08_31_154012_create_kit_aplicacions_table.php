@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cotizaciones', function (Blueprint $table) {
+        Schema::create('kits_aplicacion', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('idUsuario');
-            $table->json('idSets')->nullable();
+            $table->string('nombre');
+            $table->text('descripcion');
+            $table->string('urlImagen');
+            $table->float('precio');
             $table->integer('estado');
             $table->timestamps();
-            $table->foreign('idUsuario')->references('id')->on('users');
-
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cotizaciones');
+        Schema::dropIfExists('kit_aplicacions');
     }
 };

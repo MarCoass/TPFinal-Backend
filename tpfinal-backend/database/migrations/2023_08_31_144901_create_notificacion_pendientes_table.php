@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cotizaciones', function (Blueprint $table) {
+        Schema::create('notificaciones_pendientes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idUsuario');
-            $table->json('idSets')->nullable();
+            $table->unsignedBigInteger('idNotificacion');
             $table->integer('estado');
             $table->timestamps();
-            $table->foreign('idUsuario')->references('id')->on('users');
 
+            $table->foreign('idUsuario')->references('id')->on('users');
+            $table->foreign('idNotificacion')->references('id')->on('notificaciones');
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cotizaciones');
+        Schema::dropIfExists('notificaciones_pendientes');
     }
 };

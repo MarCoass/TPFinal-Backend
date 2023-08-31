@@ -10,4 +10,7 @@ class Oferta extends Model
     use HasFactory;
     protected $fillable = ['descripcion', 'descuento', 'fechaFin'];
     protected $table = 'ofertas';
+    protected $casts = [
+        'sets' => 'array',
+    ];
 }

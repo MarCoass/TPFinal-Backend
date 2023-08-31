@@ -19,11 +19,13 @@ return new class extends Migration
             $table->float('precio')->nullable();
             $table->text('urlImagenes')->nullable();
             $table->text('descripcion');
+            $table->unsignedBigInteger('idTips');
             $table->timestamps();
 
-              // Definición de claves foráneas
-              $table->foreign('idCategoria')->references('id')->on('categoria_sets');
-              $table->foreign('idCiudad')->references('id')->on('ciudades');
+            // Definición de claves foráneas
+            $table->foreign('idCategoria')->references('id')->on('categoria_sets');
+            $table->foreign('idCiudad')->references('id')->on('ciudades');
+            $table->foreign('idTips')->references('id')->on('tips');
         });
     }
 

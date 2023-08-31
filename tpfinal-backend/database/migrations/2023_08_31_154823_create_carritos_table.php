@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cotizaciones', function (Blueprint $table) {
+        Schema::create('carritos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idUsuario');
-            $table->json('idSets')->nullable();
-            $table->integer('estado');
+            $table->json('idSets');
+            $table->json('idKits');
             $table->timestamps();
-            $table->foreign('idUsuario')->references('id')->on('users');
 
+            $table->foreign('idUsuario')->references('id')->on('users');
+            
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cotizaciones');
+        Schema::dropIfExists('carritos');
     }
 };
