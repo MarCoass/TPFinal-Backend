@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Prueba;
 use Illuminate\Support\Facades\Route;
 
 
@@ -19,6 +18,13 @@ Route::get('/', function () {
     return ['Laravel' => app()->version()];
 });
 
-Route::get('pruebaArrays', [Prueba::class, 'pruebaArray'])->name('inicioPrueba');
+Route::group(['middleware' => ['rol:1']], function () {
+    Route::get('/adminIndex')->name('admin_index');
+});
 
-require __DIR__.'/auth.php';
+Route::group(['middleware' => ['rol:2']], function () {
+    Route::get('/clienteIndex')->name('cliente_index');
+});
+
+
+require __DIR__ . '/auth.php';

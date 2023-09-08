@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-
+use Illuminate\Support\Facades\Http;
 
 use Illuminate\Http\Request;
 
@@ -23,8 +23,8 @@ class UserController extends Controller
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
-            'idRol' =>2
-            
+            'idRol' => 2
+
         ]);
 
         $user->save();
