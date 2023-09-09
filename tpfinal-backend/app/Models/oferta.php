@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Oferta extends Model
 {
     use HasFactory;
-    protected $fillable = ['descripcion', 'descuento', 'fechaFin'];
+    protected $fillable = ['descripcion', 'descuento', 'fecha_fin', 'estado'];
     protected $table = 'ofertas';
-    protected $casts = [
-        'sets' => 'array',
-    ];
+   
 }

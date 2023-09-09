@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('precio_proveedores', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('idInsumo');
-            $table->unsignedBigInteger('idProveedor');
+            $table->unsignedBigInteger('id_insumo');
+            $table->unsignedBigInteger('id_proveedor');
             $table->float('precio');
             $table->timestamps();
 
             // Definición de claves foráneas
-            $table->foreign('idProveedor')->references('id')->on('proveedores');
-            $table->foreign('idInsumo')->references('id')->on('insumos');
+            $table->foreign('id_proveedor')->references('id')->on('proveedores');
+            $table->foreign('id_insumo')->references('id')->on('insumos');
         });
     }
 

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->text('descripcion');
             $table->float('descuento');
             $table->date('fechaFin');
-            $table->json('idSets');
+            $table->json('estado');
             $table->timestamps();
         });
     }

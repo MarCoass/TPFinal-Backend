@@ -23,7 +23,6 @@ class User extends Authenticatable
         'password',
         'numTelefono',
         'idRol',
-        'idCiudad',
         'setsFavoritos'
     ];
 
@@ -46,4 +45,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**funciones por la clave foranea*/
+    public function idRol()
+    {
+        return $this->belongsTo(Roles::class, 'idRol');
+    }
+
 }

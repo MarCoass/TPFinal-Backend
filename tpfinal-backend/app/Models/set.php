@@ -8,26 +8,22 @@ use Illuminate\Database\Eloquent\Model;
 class Set extends Model
 {
     use HasFactory;
-    protected $fillable = ['nombre', 'idCategoria', 'idCiudad', 'precio', 'urlImagenes', 'descripcion'];
+    protected $fillable = ['id_categoria', 'id_tips', 'id_producto'];
     protected $table = 'sets';
-
-    protected $casts = [
-        'urlImagenes' => 'array',
-    ];
     
     //funciones por la clave foranea
-    public function idCategoria()
+    public function Categoria()
     {
-        return $this->belongsTo(CategoriaSet::class, 'idCategoria');
+        return $this->belongsTo(CategoriaSet::class, 'id_categoria');
     }
 
-    public function idCiudad()
+    public function Tips()
     {
-        return $this->belongsTo(Ciudad::class, 'idCiudad');
+        return $this->belongsTo(Tip::class, 'id_tips');
     }
-    public function idTips()
+    public function Producto()
     {
-        return $this->belongsTo(Tip::class, 'idTips');
+        return $this->belongsTo(Productos::class, 'id_producto');
     }
 
 }

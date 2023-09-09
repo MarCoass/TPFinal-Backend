@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cotizaciones', function (Blueprint $table) {
+        Schema::create('esmaltes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('idUsuario');
-            $table->json('idSets')->nullable();
-            $table->integer('estado');
-            $table->timestamps();
-            $table->foreign('idUsuario')->references('id')->on('users');
+            $table->string('codigo_color');
+            $table->integer('usos_maximos');
+            $table->unsignedBigInteger('id_insumo');
+         
 
+            // Definir la relación con la tabla "insumos"
+            $table->foreign('id_insumo')->references('id')->on('insumos');
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cotizaciones');
+        Schema::dropIfExists('esmaltes');
     }
 };

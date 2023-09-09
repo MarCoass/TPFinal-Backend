@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class CategoriaSet extends Model
 {
     use HasFactory;
-    protected $fillable = ['nombre','descripcion','precioBase'];
+    protected $fillable = ['nombre','descripcion','precio_base'];
     protected $table = 'categoria_sets';
 }

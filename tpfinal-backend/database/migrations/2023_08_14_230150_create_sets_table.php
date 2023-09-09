@@ -13,19 +13,13 @@ return new class extends Migration
     {
         Schema::create('sets', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->unsignedBigInteger('idCategoria');
-            $table->unsignedBigInteger('idCiudad');
-            $table->float('precio')->nullable();
-            $table->text('urlImagenes')->nullable();
-            $table->text('descripcion');
-            $table->unsignedBigInteger('idTips');
-            $table->timestamps();
-
+            $table->unsignedBigInteger('id_categoria');
+            $table->unsignedBigInteger('id_tips');
+            $table->unsignedBigInteger('id_producto');
             // Definición de claves foráneas
-            $table->foreign('idCategoria')->references('id')->on('categoria_sets');
-            $table->foreign('idCiudad')->references('id')->on('ciudades');
-            $table->foreign('idTips')->references('id')->on('tips');
+            $table->foreign('id_categoria')->references('id')->on('categoria_sets');
+            $table->foreign('id_tips')->references('id')->on('tips');
+            $table->foreign('id_producto')->references('id')->on('productos');
         });
     }
 

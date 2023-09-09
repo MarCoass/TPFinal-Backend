@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('ciudades', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->float('valorEnvio');
+            $table->float('valor_envio');
             $table->timestamps();
         });
     }

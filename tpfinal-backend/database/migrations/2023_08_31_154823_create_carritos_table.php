@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('carritos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('idUsuario');
-            $table->json('idSets');
-            $table->json('idKits');
+            $table->unsignedBigInteger('id_usuario');
+            $table->json('id_productos');
+            $table->json('estado');
+            $table->float('precio_total');
             $table->timestamps();
 
-            $table->foreign('idUsuario')->references('id')->on('users');
-            
+            $table->foreign('id_usuario')->references('id')->on('users');
         });
     }
 
