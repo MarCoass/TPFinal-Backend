@@ -19,7 +19,7 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => ['rol:1']], function () {
-    Route::get('/adminIndex')->name('admin_index');
+    Route::get('/administracion/productos')->name('productos');
 });
 
 Route::group(['middleware' => ['rol:2']], function () {
