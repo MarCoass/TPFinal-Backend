@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class notificacion extends Model
+class parametros extends Model
 {
     use HasFactory;
-    protected $table = 'notificaciones';
-    protected $fillable = ['titulo', 'descripcion'];
+    protected $table = 'parametros';
+    protected $fillable = ['nombre', 'valor'];
 }

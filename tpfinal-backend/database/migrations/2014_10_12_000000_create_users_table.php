@@ -17,15 +17,14 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->unsignedBigInteger('numTelefono')->nullable();
-            $table->unsignedBigInteger('idRol')->nullable();
-            $table->bigInteger('idCiudad')->nullable();
-            $table->json('setsFavoritos')->nullable();
+            $table->unsignedBigInteger('num_telefono')->nullable();
+            $table->unsignedBigInteger('id_rol')->nullable();
+            $table->json('sets_favoritos')->nullable();
+            $table->text('observacion')->nullable();
             $table->rememberToken();
             $table->timestamps();
 
-            $table->foreign('idRol')->references('id')->on('roles');
-            $table->foreign('idCiudad')->references('id')->on('ciudades');
+            $table->foreign('id_rol')->references('id')->on('roles');
         });
     }
 

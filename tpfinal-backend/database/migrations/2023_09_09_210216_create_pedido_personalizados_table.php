@@ -11,13 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('esmaltes', function (Blueprint $table) {
+        Schema::create('pedido_personalizados', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->integer('numero');
-            $table->string('marca');
+            $table->json('id_productos');
+            $table->float('precio_total')->nullable();
+            $table->date('fecha_entrega')->nullable();
             $table->integer('estado');
+            $table->unsignedBigInteger('id_usuario');
             $table->timestamps();
+
+            $table->foreign('id_usuario')->references('id')->on('users');
         });
     }
 
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('esmaltes');
+        Schema::dropIfExists('pedido_personalizados');
     }
 };

@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kits_aplicacion', function (Blueprint $table) {
+        Schema::create('tips', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->text('descripcion');
-            $table->string('urlImagen');
-            $table->float('precio');
-            $table->integer('estado');
-            $table->timestamps();
+            $table->float('largo');
+            $table->string('forma');
+            $table->unsignedBigInteger('id_insumo');
+           
+            // Definir la relación con la tabla "insumos"
+            $table->foreign('id_insumo')->references('id')->on('insumos');
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kit_aplicacions');
+        Schema::dropIfExists('tips');
     }
 };

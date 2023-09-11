@@ -17,11 +17,12 @@ return new class extends Migration
             $table->text('descripcion');
             $table->string('marca');
             $table->integer('stock');
-            $table->unsignedBigInteger('idCategoria');
+            $table->unsignedBigInteger('id_categoria');
             $table->integer('estado');
+            $table->integer('stock_minimo');
             $table->timestamps();
 
-            $table->foreign('idCategoria')->references('id')->on('categoria_insumos');
+            $table->foreign('id_categoria')->references('id')->on('categoria_insumos');
         });
     }
 

@@ -10,11 +10,11 @@ class insumo extends Model
     use HasFactory;
 
     protected $table = 'insumos';
-    protected $fillable = ['nombre', 'descripcion', 'marca', 'stock', 'estado', 'idCategoria'];
+    protected $fillable = ['nombre', 'descripcion', 'marca', 'stock', 'estado', 'id_categoria', 'stock_minimo'];
     
     //funciones por la clave foranea
     public function CategoriaInsumo()
     {
-        return $this->belongsTo(CategoriaInsumo::class, 'idCategoria');
+        return $this->belongsTo(CategoriaInsumo::class, 'id_categoria');
     }
 }

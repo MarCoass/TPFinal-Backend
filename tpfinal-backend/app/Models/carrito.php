@@ -9,26 +9,21 @@ class carrito extends Model
 {
     use HasFactory;
     protected $table = 'carritos';
-    protected $fillable = ['idUsuario', 'idSets', 'idKits'];
+    protected $fillable = ['id_usuario', 'id_productos'];
 
     //funciones por la clave foranea
     public function idUsuario()
     {
-        return $this->belongsTo(User::class, 'idUsuario');
+        return $this->belongsTo(User::class, 'id_usuario');
     }
 
-    public function idSets()
-    {
-        return $this->belongsTo(Set::class, 'idSet');
-    }
 
-    public function idKits()
+    public function idProductos()
     {
-        return $this->belongsTo(kitAplicacion::class, 'idKits');
+        return $this->belongsTo(Producto::class, 'id_productos');
     }
 
     protected $casts = [
-        'idSets' => 'array', 
-        'idKits' => 'array'
+        'id_productos' => 'array', 
     ];
 }

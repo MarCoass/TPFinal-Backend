@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Ciudad extends Model
 {
     use HasFactory;
-    protected $filladble = ['nombre', 'valorEnvio'];
+    protected $filladble = ['nombre', 'valor_envio'];
     protected $table = 'ciudades';
 }

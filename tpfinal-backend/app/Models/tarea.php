@@ -9,5 +9,5 @@ class tarea extends Model
 {
     use HasFactory;
     protected $table = 'tareas';
-    protected $fillable = ['titulo', 'descripcion', 'estado', 'estado'];
+    protected $fillable = ['titulo', 'descripcion', 'estado', 'fecha_vencimiento'];
 }

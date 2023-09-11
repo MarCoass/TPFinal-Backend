@@ -9,5 +9,11 @@ class tip extends Model
 {
     use HasFactory;
     protected $table = 'tips';
-    protected $fillable = ['nombre', 'largo', 'forma', 'estado'];
+    protected $fillable = ['nombre', 'largo', 'forma', 'id_insumo'];
+      //funciones por la clave foranea
+      public function Insumo()
+      {
+          return $this->belongsTo(Insumo::class, 'id_insumo');
+      }
+
 }
