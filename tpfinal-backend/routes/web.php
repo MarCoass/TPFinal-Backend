@@ -19,7 +19,9 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => ['rol:1']], function () {
+    //rutas de productos
     Route::get('/administracion/productos')->name('productos');
+    Route::post('/administracion/productos/nuevo-producto')->name('productos');
 });
 
 Route::group(['middleware' => ['rol:2']], function () {
