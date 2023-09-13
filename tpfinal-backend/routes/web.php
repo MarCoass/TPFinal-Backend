@@ -21,6 +21,7 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['rol:1']], function () {
     //rutas de productos
+    Route::post('/administracion/productoStore', [ProductosController::class, 'store']);
 });
 
 Route::group(['middleware' => ['rol:2']], function () {

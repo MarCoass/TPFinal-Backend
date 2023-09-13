@@ -49,7 +49,7 @@ class User extends Authenticatable
     /**funciones por la clave foranea*/
     public function idRol()
     {
-        return $this->belongsTo(Roles::class, 'idRol');
+        return $this->belongsTo(Rol::class, 'id_rol');
     }
 
 }

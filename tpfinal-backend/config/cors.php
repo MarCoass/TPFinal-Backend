@@ -14,7 +14,7 @@ return [
     | To learn more: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
     |
     */
-    'paths' => ['api/*'],
+    'paths' => ['api/*',  'getCsrf'],
     'allowed_methods' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     'allowed_origins' => [env('FRONTEND_URL', 'http://localhost:3000')],
     'allowed_origins_patterns' => [],

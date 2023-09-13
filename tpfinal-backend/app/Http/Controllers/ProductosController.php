@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Ciudad;
 use App\Models\producto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 class ProductosController extends Controller
 {
@@ -16,6 +18,7 @@ class ProductosController extends Controller
 
     public function store(Request $request)
     {
+        //$this->authorize(true);
         $producto = new producto();
         $producto->nombre = $request->input('nombre');
         $producto->descripcion = $request->input('descripcion');
@@ -23,21 +26,23 @@ class ProductosController extends Controller
         $producto->stock = $request->input('stock');
         $producto->estado = $request->input('estado');
 
-        //para guardar la imagen
+        
         if ($request->hasFile('imagen')) {
-            $extension = $request->file('imagen')->getClientOriginalExtension(); //obtengo el tipo de extension
+            $extension = $request->file('imagen')->getClientOriginalExtension(); //obtengo el tipo de extensión
             $nombreSinEspacios = str_replace(' ', '', $request->input('nombre')); //saco los espacios para evitar problemas
-            $nombreImagen = $nombreSinEspacios . '.' . $extension; //armo el nuevo nombre del archivo agregandole la extension
-            $path = $request->file('flyer')->storeAs('/productos', $nombreImagen, 'public'); //subo a /productos la imagen
-            $producto->url_imagen = $path; //guardo en la bd la url a la imagen
+            $nombreImagen = $nombreSinEspacios . '.' . $extension; //armo el nuevo nombre del archivo agregándole la extensión
+            $path = $request->file('imagen')->storeAs('/productos', $nombreImagen, 'public'); //subo a /productos la imagen
+            $producto->url_imagen = $path; //guardo en la base de datos la URL de la imagen 
         }
 
         //para guardar la ciudad
-        $ciudad = Ciudad::find($request->input('id_ciudad'));
-        $producto->id_ciudad()->associate($ciudad);
+        $ciudad = Ciudad::find($request->input('ciudad'));
+        $producto->Ciudad()->associate($ciudad);
 
         $producto->save();
+        return response()->json(['message' => 'Datos guardados exitosamente'], 200);
     }
+
 
     public function update(Request $request)
     {
