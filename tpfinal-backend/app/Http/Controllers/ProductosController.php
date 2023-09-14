@@ -52,9 +52,10 @@ class ProductosController extends Controller
     {
     }
 
-    public function destroy($idProducto)
+    public function delete($id)
     {
-        $producto = producto::find($idProducto);
+
+        $producto = producto::find($id);
         $producto->delete();
         return response()->json(['message' => 'Eliminado exitosamente'], 200);
     }
