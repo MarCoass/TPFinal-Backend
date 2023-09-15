@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Ciudad;
 use App\Models\producto;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 
 class ProductosController extends Controller
@@ -25,7 +24,6 @@ class ProductosController extends Controller
         $producto->precio = $request->input('precio');
         $producto->stock = $request->input('stock');
         $producto->estado = $request->input('estado');
-
 
         if ($request->hasFile('imagen')) {
             $extension = $request->file('imagen')->getClientOriginalExtension(); //obtengo el tipo de extensión
@@ -80,7 +78,6 @@ class ProductosController extends Controller
         return response()->json(['message' => 'Producto actualizado exitosamente'], 200);
     }
 
-
     public function show($id)
     {
         $producto = producto::find($id);
@@ -89,9 +86,23 @@ class ProductosController extends Controller
 
     public function delete($id)
     {
-
         $producto = producto::find($id);
         $producto->delete();
         return response()->json(['message' => 'Eliminado exitosamente'], 200);
+    }
+
+    //descuenta del stock del producto la cantidad recibida
+    public function descontarProducto($id_producto, $cantidad)
+    {
+        $producto = producto::find($id_producto);
+        $producto->stock =  $producto->stock - $cantidad;
+        $producto->save();
+    }
+
+    //descuenta del stock del producto la cantidad recibida
+    public function validarStock($id_producto, $cantidad)
+    {
+        $producto = producto::find($id_producto);
+        return $producto->stock >= $cantidad;
     }
 }
