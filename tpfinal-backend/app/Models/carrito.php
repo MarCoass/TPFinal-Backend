@@ -9,7 +9,7 @@ class carrito extends Model
 {
     use HasFactory;
     protected $table = 'carritos';
-    protected $fillable = ['id_usuario', 'id_productos'];
+    protected $fillable = ['id_usuario', 'id_productos', 'estado'];
 
     //funciones por la clave foranea
     public function idUsuario()

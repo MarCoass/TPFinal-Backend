@@ -11,9 +11,11 @@ class CarritoController extends Controller
     //Obtiene el carrito actual del usuario autenticado
     public function verCarritoActual()
     {
+
         $user = auth()->user();
+
         //trae el ultimo carrito carrito con estado '0' 
-        $carrito = carrito::where('id_usuario', $user->id)->where('estado', 0)->get();
+        $carrito = carrito::where('id_usuario', $user->id)->where('estado', 0)->first();
         return response()->json($carrito);
     }
 
@@ -51,32 +53,50 @@ class CarritoController extends Controller
     //agrega un nuevo producto al carrito actual, si no existe se crea un carrito
     public function agregarProducto(Request $request)
     {
-        //busca el carrito actual
+        // Busca el carrito actual
         $user = auth()->user();
-        $carrito = carrito::where('id_usuario', $user->id)->where('estado', 0)->get();
+        $carrito = carrito::where('id_usuario', $user->id)->where('estado', '=', 0)->first();
 
-        //si es null, crea el carrito
-        if ($carrito == null) {
-            $carrito = $this->store();
+        // Si el carrito no existe, créalo
+        if (!$carrito) {
+            $carrito = new carrito();
+            $carrito->estado = 0;
+            $carrito->id_usuario = auth()->user()->id;
+            $carrito->id_productos = json_encode([]);
+            $carrito->save();
         }
 
-        //obtiene los productos guardados
-        $productos = json_decode($carrito->id_productos);
-        //agrega el nuevo producto
-        $nuevoProducto = [
-            'id_producto' => $request->input('id_producto'),
-            'cantidad' => $request->input('cantidad')
-        ];
-        $productos[] = $nuevoProducto;
+        // Obtiene los productos guardados
+        $productos = json_decode($carrito->id_productos, true);
 
-        //pasa el array a json
+        //busca si ya existe el producto
+        $indiceProducto = null;
+
+        for ($i = 0; $i < sizeOf($productos); $i++)
+           {
+                if ($productos[$i]['id_producto'] == $request->input('id_producto')) {
+                    $indiceProducto = $i;
+                    break;
+                }
+            }
+        // Si encontró un producto existente, aumenta la cantidad
+        if ($indiceProducto !== null) {
+            $productos[$indiceProducto]['cantidad'] += $request->input('cantidad');
+        } else {
+            // Si no existe, crea un nuevo producto
+            $nuevoProducto = [
+                'id_producto' => $request->input('id_producto'),
+                'cantidad' => $request->input('cantidad')
+            ];
+            $productos[] = $nuevoProducto;
+        }
+        // Pasa el array a JSON y guarda el nuevo valor
         $nuevosProductos = json_encode($productos);
-        //guarda el nuevo valor
         $carrito->id_productos = $nuevosProductos;
         $carrito->save();
-        return  response()->json(['message' => 'Producto agregado al carrito.'], 200);
-    }
 
+        return response()->json(['message' => 'Producto agregado al carrito.'], 200);
+    }
     //agrega un nuevo producto al carrito actual, si no existe se crea un carrito
     public function eliminarProducto(Request $request)
     {
@@ -126,5 +146,4 @@ class CarritoController extends Controller
         $carrito->estado = 1;
         return  response()->json(['message' => 'Compra realizada correctamente.'], 200);
     }
-
 }

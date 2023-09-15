@@ -41,7 +41,6 @@ class ProductosController extends Controller
         return response()->json(['message' => 'Datos guardados exitosamente'], 200);
     }
 
-
     public function update(Request $request, $id)
     {
         // Busca el producto por su ID
