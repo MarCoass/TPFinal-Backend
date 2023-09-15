@@ -35,3 +35,4 @@ Route::get('/administracion/producto/{id}', [ProductosController::class, 'show']
 Route::get('/administracion/productos', [ProductosController::class, 'index'])->name('productos');
 
 require __DIR__ . '/auth.php';
+require __DIR__ . '/carrito.php';

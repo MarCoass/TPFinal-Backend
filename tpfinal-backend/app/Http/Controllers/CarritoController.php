@@ -24,6 +24,12 @@ class CarritoController extends Controller
         return response()->json($carritos);
     }
 
+    public function verCarrito($id_carrito)
+    {
+        $carrito = carrito::find($id_carrito);
+        return response()->json($carrito);
+    }
+
     //crea un nuevo carrito, establece el estado en '0' => 'activo'
     public function store()
     {
