@@ -21,12 +21,17 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['rol:1']], function () {
     //rutas de productos
+    Route::post('/administracion/productoStore', [ProductosController::class, 'store']);
+    Route::delete('/administracion/productoDelete/{id}', [ProductosController::class, 'delete']);
+  
 });
 
 Route::group(['middleware' => ['rol:2']], function () {
     Route::get('/clienteIndex')->name('cliente_index');
 });
 
+
+Route::get('/administracion/producto/{id}', [ProductosController::class, 'show']);
 Route::get('/administracion/productos', [ProductosController::class, 'index'])->name('productos');
 
 require __DIR__ . '/auth.php';

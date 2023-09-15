@@ -27,7 +27,7 @@ class RolMiddleware
      */
     public function handle(Request $request, Closure $next, ...$roleIds)
     {
-        $userRoleId = $request->user()->idRol;
+        $userRoleId = $request->user()->id_rol;
     
         foreach ($roleIds as $roleId) {
             if ($userRoleId == $roleId) {

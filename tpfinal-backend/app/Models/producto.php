@@ -11,4 +11,9 @@ class producto extends Model
     protected $table = 'productos';
     protected $fillable = ['nombre', 'descripcion', 'id_ciudad', 'precio', 'estado', 'url_imagen', 'stock'];
     
+
+    public function Ciudad()
+    {
+        return $this->belongsTo(Ciudad::class, 'id_ciudad');
+    }
 }

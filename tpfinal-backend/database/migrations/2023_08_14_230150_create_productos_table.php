@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->text('descripcion');
-            $table->unsignedBigInteger('id_ciudad');
-            $table->float('precio');
-            $table->integer('estado');
-            $table->string('url_imagen');
-            $table->integer('stock');
+            $table->text('descripcion')->nullable();
+            $table->unsignedBigInteger('id_ciudad')->nullable();
+            $table->float('precio')->nullable();
+            $table->integer('estado')->nullable();
+            $table->string('url_imagen')->nullable();
+            $table->integer('stock')->nullable();
             $table->timestamps();
             $table->foreign('id_ciudad')->references('id')->on('ciudades');
         });
