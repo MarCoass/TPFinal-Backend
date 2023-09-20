@@ -47,4 +47,9 @@ class TipsController extends Controller
         $tip->delete();
         return response()->json(['message' => 'Datos eliminados exitosamente'], 200);
     }
+
+    public function show($id){
+        $tip = tip::find($id);
+        return response()->json($tip);
+    }
 }
