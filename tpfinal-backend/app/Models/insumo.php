@@ -10,7 +10,11 @@ class insumo extends Model
     use HasFactory;
 
     protected $table = 'insumos';
-    protected $fillable = ['nombre', 'descripcion', 'marca', 'stock', 'estado', 'id_categoria', 'stock_minimo'];
+    protected $fillable = ['nombre', 'descripcion', 'marca', 'stock', 'estado', 'id_categoria', 'stock_minimo', 'tags'];
+
+    protected $casts = [
+        'tags' => 'array',
+    ];
     
     //funciones por la clave foranea
     public function CategoriaInsumo()
