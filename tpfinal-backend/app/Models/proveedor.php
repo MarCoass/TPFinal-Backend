@@ -9,6 +9,9 @@ class proveedor extends Model
 {
     use HasFactory;
     protected $table= 'proveedores';
-    protected $fillable = ['nombre', 'direccion', 'anotacion'];
+    protected $fillable = ['nombre', 'direccion', 'anotacion', 'tags'];
+    protected $casts = [
+        'tags' => 'array',
+    ];
 
 }

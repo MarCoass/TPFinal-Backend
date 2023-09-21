@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('estado')->nullable();
             $table->string('url_imagen')->nullable();
             $table->integer('stock')->nullable();
+            $table->json('tags')->nullable();
             $table->timestamps();
             $table->foreign('id_ciudad')->references('id')->on('ciudades');
         });
