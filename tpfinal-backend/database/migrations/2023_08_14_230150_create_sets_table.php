@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_categoria');
             $table->unsignedBigInteger('id_tips');
             $table->unsignedBigInteger('id_producto');
+            $table->timestamps();
             // Definición de claves foráneas
             $table->foreign('id_categoria')->references('id')->on('categoria_sets');
             $table->foreign('id_tips')->references('id')->on('tips');
