@@ -27,8 +27,9 @@ class InsumosController extends Controller
 
         //para guardar la categoria
         $categoria = categoriaInsumo::find($request->input('id_categoria'));
-        $insumo->CategoriaInsumo()->associate($categoria);
 
+        $insumo->CategoriaInsumo()->associate($categoria);
+      
         $insumo->save();
         return response()->json(['message' => 'Datos guardados exitosamente'], 200);
     }

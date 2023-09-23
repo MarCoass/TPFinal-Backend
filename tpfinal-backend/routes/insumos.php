@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoriaInsumos;
 use App\Http\Controllers\InsumosController;
 use App\Http\Controllers\TipsController;
 use Illuminate\Support\Facades\Route;
@@ -20,5 +21,10 @@ Route::group(['middleware'=>['rol:1']], function(){
     Route::post('/administracion/esmaltesStore',[EsmaltesController::class, 'store']);
     Route::delete('/administracion/esmaltesDelete/{id}',[EsmaltesController::class, 'delete']);
     Route::post('/administracion/esmaltesUpdate/{id}',[EsmaltesController::class, 'update']);
+
+    Route::get('/administracion/categoriasInsumos',[CategoriaInsumos::class, 'index']);
+    Route::post('/administracion/categoriasInsumosStore',[CategoriaInsumos::class, 'store']);
+    Route::delete('/administracion/categoriasInsumosDelete/{id}',[CategoriaInsumos::class, 'delete']);
+    Route::post('/administracion/categoriasInsumosUpdate/{id}',[CategoriaInsumos::class, 'update']);
 
 });
