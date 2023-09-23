@@ -9,7 +9,7 @@ class esmalte extends Model
 {
     use HasFactory;
     protected $table = 'esmalte';
-    protected $fillable = ['codigo_color', 'usos_maximo', 'id_insumo'];
+    protected $fillable = ['codigo_color', 'usos_maximo', 'usos', 'id_insumo'];
 
     // Define la relación con la tabla "insumos"
     public function insumo()

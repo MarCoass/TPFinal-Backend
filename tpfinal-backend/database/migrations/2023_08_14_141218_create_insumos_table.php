@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_categoria');
             $table->integer('estado');
             $table->integer('stock_minimo');
+            $table->json('tags')->nullable();
             $table->timestamps();
 
             $table->foreign('id_categoria')->references('id')->on('categoria_insumos');

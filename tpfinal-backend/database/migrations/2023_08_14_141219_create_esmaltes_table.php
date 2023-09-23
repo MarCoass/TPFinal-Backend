@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('codigo_color');
             $table->integer('usos_maximos');
+            $table->integer('usos');
             $table->unsignedBigInteger('id_insumo');
          
 
