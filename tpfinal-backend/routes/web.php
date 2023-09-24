@@ -23,6 +23,7 @@ Route::group(['middleware' => ['rol:1']], function () {
     //rutas de productos
     Route::post('/administracion/productoStore', [ProductosController::class, 'store']);
     Route::delete('/administracion/productoDelete/{id}', [ProductosController::class, 'delete']);
+    Route::put('/administracion/productoUpdate/{id}', [ProductosController::class, 'update']);
 });
 
 Route::group(['middleware' => ['rol:2']], function () {
@@ -35,3 +36,4 @@ Route::get('/administracion/productos', [ProductosController::class, 'index'])->
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/insumos.php';
+require __DIR__ . '/ciudades.php';
