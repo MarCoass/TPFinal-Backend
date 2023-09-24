@@ -18,6 +18,7 @@ class ProductosController extends Controller
 
     public function store(Request $request)
     {
+    
         //$this->authorize(true);
         $producto = new producto();
         $producto->nombre = $request->input('nombre');
@@ -89,7 +90,6 @@ class ProductosController extends Controller
 
     public function delete($id)
     {
-
         $producto = producto::find($id);
         $producto->delete();
         return response()->json(['message' => 'Eliminado exitosamente'], 200);
