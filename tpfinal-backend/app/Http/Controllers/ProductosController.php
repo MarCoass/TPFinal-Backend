@@ -41,6 +41,7 @@ class ProductosController extends Controller
 
         $producto->save();
         return response()->json(['message' => 'Datos guardados exitosamente'], 200);
+       
     }
 
 
