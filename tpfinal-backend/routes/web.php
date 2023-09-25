@@ -37,3 +37,4 @@ Route::get('/administracion/productos', [ProductosController::class, 'index'])->
 require __DIR__ . '/auth.php';
 require __DIR__ . '/insumos.php';
 require __DIR__ . '/ciudades.php';
+require __DIR__ . '/sets.php';
