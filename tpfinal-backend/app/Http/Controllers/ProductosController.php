@@ -19,7 +19,6 @@ class ProductosController extends Controller
     public function store(Request $request)
     {
     
-        //$this->authorize(true);
         $producto = new producto();
         $producto->nombre = $request->input('nombre');
         $producto->descripcion = $request->input('descripcion');
@@ -47,6 +46,7 @@ class ProductosController extends Controller
 
     public function update(Request $request, $id)
     {
+        
         // Busca el producto por su ID
         $producto = producto::find($id);
 
