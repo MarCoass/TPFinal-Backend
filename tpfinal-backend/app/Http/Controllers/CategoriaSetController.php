@@ -11,4 +11,9 @@ class CategoriaSetController extends Controller
         $categorias = CategoriaSet::all();
         return response()->json($categorias);
     }
+
+    public function show($id){
+        $categoria = categoriaSet::find($id);
+        return response()->json($categoria);
+    }
 }
