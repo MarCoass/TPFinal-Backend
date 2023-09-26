@@ -25,5 +25,9 @@ class CategoriaInsumosSeeder extends Seeder
         categoriaInsumo::create([
             'nombre' => 'Decoracion'
         ]);
+        categoriaInsumo::create([
+            'nombre' => 'Kits'
+        ]);
+        
     }
 }

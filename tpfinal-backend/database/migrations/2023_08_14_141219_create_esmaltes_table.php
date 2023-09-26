@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('usos_maximos');
             $table->integer('usos');
             $table->unsignedBigInteger('id_insumo');
-         
+            $table->timestamps();
 
             // Definir la relación con la tabla "insumos"
             $table->foreign('id_insumo')->references('id')->on('insumos');

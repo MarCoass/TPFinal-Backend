@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class esmalte extends Model
 {
     use HasFactory;
-    protected $table = 'esmalte';
-    protected $fillable = ['codigo_color', 'usos_maximo', 'usos', 'id_insumo'];
+    protected $table = 'esmaltes';
+    protected $fillable = ['codigo_color', 'usos_maximos', 'usos', 'id_insumo'];
 
     // Define la relación con la tabla "insumos"
-    public function insumo()
+    public function Insumo()
     {
         return $this->belongsTo(Insumo::class, 'id_insumo');
     }
+  
 }
