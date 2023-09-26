@@ -26,7 +26,7 @@ class SetController extends Controller
 
         //obtengo el ID desde el response
         $productoData = json_decode($productoResponse->getContent());
-        $id_producto = $productoData->producto->id;
+        $id_producto = $productoData->id;
 
         //crea el set
         $set = new Set();
@@ -35,13 +35,13 @@ class SetController extends Controller
         $set->Producto()->associate($producto);
 
         $categoria = CategoriaSet::find($request->input('id_categoria'));
-        $set->Categoria()->associate($categoria);
+        $set->CategoriaSet()->associate($categoria);
 
-        $tips = tip::find($request->input('id_tips'));
-        $set->Tips()->associate($tips);
+
+        $tips = tip::find($request->input('id_tip'));
+        $set->Tip()->associate($tips);
 
         $set->save();
-
         return response()->json(['message' => 'Datos guardados exitosamente'], 200);
     }
 

@@ -12,4 +12,9 @@ class CiudadController extends Controller
         $ciudades = Ciudad::all();
         return response()->json($ciudades);
     }
+
+    public function show($id){
+        $ciudad = Ciudad::find($id);
+        return response()->json($ciudad);
+    }
 }
