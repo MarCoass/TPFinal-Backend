@@ -39,8 +39,6 @@ class SetController extends Controller
 
 
         $tips = tip::find($request->input('id_tip'));
-    
-
         $set->Tip()->associate($tips);
 
         $set->save();
