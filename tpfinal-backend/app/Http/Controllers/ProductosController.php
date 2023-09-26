@@ -18,7 +18,7 @@ class ProductosController extends Controller
 
     public function store(Request $request)
     {
-    
+
         $producto = new producto();
         $producto->nombre = $request->input('nombre');
         $producto->descripcion = $request->input('descripcion');
@@ -40,14 +40,26 @@ class ProductosController extends Controller
         $producto->Ciudad()->associate($ciudad);
 
         $producto->save();
-        return response()->json(['message' => 'Datos guardados exitosamente'], 200);
-       
+
+        $id_producto = $producto->id;
+        // Decodificar la cadena JSON en un array asociativo
+        $cantidadesInsumos = json_decode($request->input('cantidadesInsumos'), true);
+
+        $insumoProducto = new InsumoProductoController();
+
+        // Iterar sobre el array de cantidadesInsumos
+        foreach ($cantidadesInsumos as $id_insumo => $cantidad) {
+            // Llamar a la función store para cada par id_insumo y cantidad
+            $insumoProducto->store($id_producto, $id_insumo, $cantidad);
+        }
+
+        return response()->json(['id' => $producto->id], 200);
     }
 
 
     public function update(Request $request, $id)
     {
-        
+
         // Busca el producto por su ID
         $producto = producto::find($id);
 
