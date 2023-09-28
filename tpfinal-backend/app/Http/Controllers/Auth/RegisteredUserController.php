@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Rol;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -21,22 +22,31 @@ class RegisteredUserController extends Controller
     public function store(Request $request): Response
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'username' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
-            'name' => $request->name,
+            'username' => $request->username,
+            'nombre' => $request->input('nombre'),
+            'apellido' => $request->input('apellido'),
+            'num_telefono' => $request->input('numTelefono'),
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'id_rol' => 2
         ]);
+
+        // Relaciona el usuario con el rol
+     
+        $user->idRol()->associate(2);
+
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        
+
         return response()->noContent();
     }
 }
