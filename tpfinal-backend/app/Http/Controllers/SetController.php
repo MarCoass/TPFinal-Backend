@@ -86,4 +86,11 @@ class SetController extends Controller
         $productoResponse = $productoController->delete($id_producto);
         return response()->json(['message' => 'Set eliminado correctamente'], 200);
     }
+
+    public function esSet($id){
+        
+        $set = Set::find($id);
+        $esSet = $set? true : false;
+        return response()->json(['esSet' => $esSet]);
+    }
 }
