@@ -15,4 +15,9 @@ class InsumoProductoController extends Controller
         $insumoProducto->cantidad = $cantidad;
         $insumoProducto->save();
     }
+
+    public function buscarPorProducto($id){
+        $insumoProductos = insumoProducto::where('id_producto', $id)->get();
+        return response()->json($insumoProductos);
+    }
 }
