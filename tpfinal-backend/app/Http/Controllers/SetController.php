@@ -81,6 +81,7 @@ class SetController extends Controller
     {
         $set = Set::find($id);
         $id_producto = $set->Producto();
+
         $set->delete();
         $productoController = new ProductosController();
         $productoResponse = $productoController->delete($id_producto);

@@ -16,6 +16,7 @@ class insumoProducto extends Model
     {
         return $this->belongsTo(Insumo::class, 'id_insumo');
     }
+    
     public function Producto()
     {
         return $this->belongsTo(Producto::class, 'id_producto');

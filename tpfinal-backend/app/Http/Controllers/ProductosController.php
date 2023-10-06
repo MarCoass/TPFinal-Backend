@@ -6,7 +6,8 @@ use App\Models\Ciudad;
 use App\Models\producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-
+use App\Models\Set;
+use App\Models\insumoProducto;
 
 class ProductosController extends Controller
 {
@@ -103,8 +104,20 @@ class ProductosController extends Controller
 
     public function delete($id)
     {
-        $producto = producto::find($id);
-        $producto->delete();
+        //revisa si es set
+        $set = set::where('id_producto', $id)->first();
+
+        //eliminar los insumos_productos
+        InsumoProducto::where('id_producto', $id)->delete();
+        if ($set) {
+            $setController = new SetController();
+            $setDelete = $setController->delete($set->id);
+            return response()->json(['message' => 'Eliminado exitosamente'], 200);
+        } else {
+            $producto = producto::find($id);
+            $producto->delete();
+        }
+
         return response()->json(['message' => 'Eliminado exitosamente'], 200);
     }
 }

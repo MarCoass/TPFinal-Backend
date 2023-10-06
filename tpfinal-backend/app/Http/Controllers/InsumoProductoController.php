@@ -20,4 +20,5 @@ class InsumoProductoController extends Controller
         $insumoProductos = insumoProducto::where('id_producto', $id)->get();
         return response()->json($insumoProductos);
     }
+    
 }
