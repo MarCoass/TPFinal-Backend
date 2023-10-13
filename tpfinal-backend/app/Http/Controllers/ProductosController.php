@@ -98,7 +98,8 @@ class ProductosController extends Controller
 
     public function show($id)
     {
-        $producto = producto::find($id);
+        $producto = producto::with(['set', 'set.categoriaSet', 'set.tip', 'ciudad'])->find($id);
+        // $productoInfo = $producto->with('set', 'set.categoriaSet', 'set.tip', 'ciudad')->get();
         return response()->json($producto);
     }
 
