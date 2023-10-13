@@ -6,14 +6,14 @@ use App\Models\Ciudad;
 use App\Models\producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Set;
+use App\Models\set;
 use App\Models\insumoProducto;
 
 class ProductosController extends Controller
 {
     public function index()
     {
-        $productos = producto::all();
+        $productos = producto::with('set', 'set.categoriaSet', 'set.tip')->get();
         return response()->json($productos);
     }
 
