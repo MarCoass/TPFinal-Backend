@@ -13,7 +13,7 @@ class ProductosController extends Controller
 {
     public function index()
     {
-        $productos = producto::with('set', 'set.categoriaSet', 'set.tip')->get();
+        $productos = producto::with('set', 'set.categoriaSet', 'set.tip', 'ciudad')->get();
         return response()->json($productos);
     }
 

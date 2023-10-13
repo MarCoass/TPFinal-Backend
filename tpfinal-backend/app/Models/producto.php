@@ -24,6 +24,7 @@ class producto extends Model
         return $this->hasOne(Set::class, 'id_producto', 'id');
     }
 
+
     public function categoria():HasOneThrough
     {
         return $this->hasOneThrough(Set::class, CategoriaSet::class);
