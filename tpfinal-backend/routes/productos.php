@@ -15,3 +15,4 @@ Route::group(['middleware' => ['rol:1']], function () {
 Route::get('/administracion/producto/{id}', [ProductosController::class, 'show']);
 Route::get('/administracion/productos', [ProductosController::class, 'index'])->name('productos');
 
+Route::post('/modificarCantidad', [InsumoProductoController::class, 'actualizarCantidad']);

@@ -34,4 +34,10 @@ class producto extends Model
     {
         return $this->hasOneThrough(Set::class, tip::class);
     }
+
+    public function insumos()
+    {
+        return $this->belongsToMany(Insumo::class, 'insumo_productos', 'id_producto', 'id_insumo')
+            ->withPivot('cantidad');
+    }
 }

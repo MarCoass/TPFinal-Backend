@@ -21,4 +21,10 @@ class insumo extends Model
     {
         return $this->belongsTo(CategoriaInsumo::class, 'id_categoria');
     }
+
+    public function productos()
+    {
+        return $this->belongsToMany(Producto::class, 'insumo_productos', 'id_insumo', 'id_producto')
+            ->withPivot('cantidad');
+    }
 }
