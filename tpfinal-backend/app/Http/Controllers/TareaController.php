@@ -13,7 +13,7 @@ class TareaController extends Controller
     }
 
     //create
-    public function create(Request $request){
+    public function store(Request $request){
         $tarea = new Tarea();
         $tarea->titulo = $request->input('titulo');
         $tarea->descripcion = $request->input('descripcion');
@@ -47,5 +47,5 @@ class TareaController extends Controller
         return response()->json($tarea);
     }
 
-    
+
 }
