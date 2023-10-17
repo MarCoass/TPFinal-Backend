@@ -25,3 +25,4 @@ require __DIR__ . '/insumos.php';
 require __DIR__ . '/ciudades.php';
 require __DIR__ . '/sets.php';
 require __DIR__ . '/productos.php';
+require __DIR__ . '/tareas.php';
