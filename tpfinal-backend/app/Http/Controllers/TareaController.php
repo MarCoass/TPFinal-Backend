@@ -31,7 +31,21 @@ class TareaController extends Controller
     }
 
     //update
+    public function update(Request $request, $id){
+        $tarea = Tarea::find($id);
+        $tarea->titulo = $request->input('titulo');
+        $tarea->descripcion = $request->input('descripcion');
+        $tarea->estado = 0;
+        $tarea->fecha_vencimiento = $request->input('fecha_vencimiento');
+        $tarea->save();
+        return response()->json(['Tarea modificada correctamete', 200]);
+    }
 
     //show
+    public function show($id){
+        $tarea = Tarea::find($id);
+        return response()->json($tarea);
+    }
+
     
 }
