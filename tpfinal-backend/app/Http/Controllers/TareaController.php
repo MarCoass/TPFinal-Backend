@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\tarea;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TareaController extends Controller
@@ -14,11 +15,12 @@ class TareaController extends Controller
 
     //create
     public function store(Request $request){
+        
         $tarea = new Tarea();
         $tarea->titulo = $request->input('titulo');
         $tarea->descripcion = $request->input('descripcion');
         $tarea->estado = 0;
-        $tarea->fecha_vencimiento = $request->input('fecha_vencimiento');
+        $tarea->fecha_vencimiento = Carbon::parse($request->input('fecha_vencimiento'));
         $tarea->save();
         return response()->json(['Tarea creada correctamete', 200]);
     }
@@ -32,11 +34,12 @@ class TareaController extends Controller
 
     //update
     public function update(Request $request, $id){
+      
         $tarea = Tarea::find($id);
         $tarea->titulo = $request->input('titulo');
         $tarea->descripcion = $request->input('descripcion');
         $tarea->estado = 0;
-        $tarea->fecha_vencimiento = $request->input('fecha_vencimiento');
+        $tarea->fecha_vencimiento = Carbon::parse($request->input('fecha_vencimiento'));
         $tarea->save();
         return response()->json(['Tarea modificada correctamete', 200]);
     }

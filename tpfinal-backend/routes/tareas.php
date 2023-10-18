@@ -7,9 +7,9 @@ Route::group(['middleware' => ['rol:1']], function () {
     //rutas de tareas
     Route::get('/tareas', [TareaController::class, 'index']);
     Route::post('/tareaStore', [TareaController::class, 'store']);
-    Route::post('/tareaUpdate', [TareaController::class, 'update']);
+    Route::post('/tareaUpdate/{id}', [TareaController::class, 'update']);
     Route::delete('/tareaDelete', [TareaController::class, 'delete']);
-    Route::delete('/tarea/{id}', [TareaController::class, 'show']);
+    Route::get('/tarea/{id}', [TareaController::class, 'show']);
 });
 
 
