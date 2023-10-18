@@ -19,7 +19,7 @@ class TareaController extends Controller
         $tarea = new Tarea();
         $tarea->titulo = $request->input('titulo');
         $tarea->descripcion = $request->input('descripcion');
-        $tarea->estado = 0;
+        $tarea->estado = $request->input('estado');
         $tarea->fecha_vencimiento = Carbon::parse($request->input('fecha_vencimiento'));
         $tarea->save();
         return response()->json(['Tarea creada correctamete', 200]);
