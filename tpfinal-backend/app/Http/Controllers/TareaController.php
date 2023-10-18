@@ -27,8 +27,10 @@ class TareaController extends Controller
 
     //delete
     public function delete($id){
+        
         $tarea = Tarea::find($id);
-        $tarea->destroy();
+       
+        $tarea->delete();
         return response()->json(['Tarea eliminada correctamente', 200]);
     }
 

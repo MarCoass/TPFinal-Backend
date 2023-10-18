@@ -8,7 +8,7 @@ Route::group(['middleware' => ['rol:1']], function () {
     Route::get('/tareas', [TareaController::class, 'index']);
     Route::post('/tareaStore', [TareaController::class, 'store']);
     Route::post('/tareaUpdate/{id}', [TareaController::class, 'update']);
-    Route::delete('/tareaDelete', [TareaController::class, 'delete']);
+    Route::delete('/tareaDelete/{id}', [TareaController::class, 'delete']);
     Route::get('/tarea/{id}', [TareaController::class, 'show']);
 });
 
