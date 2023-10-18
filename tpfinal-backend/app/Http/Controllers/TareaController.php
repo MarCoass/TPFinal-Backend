@@ -9,7 +9,7 @@ class TareaController extends Controller
 {
     //index
     public function index(){
-        $tareas = Tarea::orderBy('estado', 'asc')->orderBy('created_at', 'desc')->get();
+        $tareas = Tarea::orderBy('estado', 'asc')->orderBy('fecha_vencimiento', 'asc')->get();
         return response()->json($tareas);
     }
 
@@ -62,7 +62,7 @@ class TareaController extends Controller
 
     //para mostrar en el inicio
     public function mostrarInicio(){
-        $tareas = Tarea::where('estado', 0)->orderBy('created_at', 'desc')->take(5)->get();
+        $tareas = Tarea::where('estado', 0)->orderBy('fecha_vencimiento', 'asc')->take(5)->get();
         $cantPendientes = Tarea::where('estado', 0)->count();
         return response()->json(['tareas'=>$tareas , 'cantidadPendientes'=>$cantPendientes]);
     }
