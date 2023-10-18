@@ -60,4 +60,11 @@ class TareaController extends Controller
         return response()->json(['Estado modificado correctamete', 200]);
     }
 
+    //para mostrar en el inicio
+    public function mostrarInicio(){
+        $tareas = Tarea::where('estado', 0)->orderBy('created_at', 'desc')->take(5)->get();
+        $cantPendientes = Tarea::where('estado', 0)->count();
+        return response()->json(['tareas'=>$tareas , 'cantidadPendientes'=>$cantPendientes]);
+    }
+
 }
