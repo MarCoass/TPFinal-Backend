@@ -10,6 +10,9 @@ Route::group(['middleware' => ['rol:1']], function () {
     Route::post('/tareaUpdate/{id}', [TareaController::class, 'update']);
     Route::delete('/tareaDelete/{id}', [TareaController::class, 'delete']);
     Route::get('/tarea/{id}', [TareaController::class, 'show']);
+
+    //estados de la tarea
+    Route::post('/tareaTerminada/{id}', [TareaController::class, 'cambiarEstado']);
 });
 
 

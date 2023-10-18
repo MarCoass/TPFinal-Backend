@@ -9,7 +9,7 @@ class TareaController extends Controller
 {
     //index
     public function index(){
-        $tareas = Tarea::all();
+        $tareas = Tarea::orderBy('estado', 'asc')->orderBy('created_at', 'desc')->get();
         return response()->json($tareas);
     }
 
@@ -52,5 +52,12 @@ class TareaController extends Controller
         return response()->json($tarea);
     }
 
+    //cambiar estado
+    public function cambiarEstado($id){
+        $tarea = Tarea::find($id);
+        $tarea->estado = 1;
+        $tarea->save();
+        return response()->json(['Estado modificado correctamete', 200]);
+    }
 
 }
