@@ -14,40 +14,40 @@ class TareasTableSeeder extends Seeder
     {
         //
         Tarea::create([
-            'titulo' => 'Ejemplo tarea 1',
-            'descripcion' => 'Descripcion del ejemplo de la tarea',
+            'titulo' => 'Comprar esmalte',
+            'descripcion' => 'Reponer esmalte rojo',
             'estado' => 0,
-            'fecha_vencimiento' => '11/12/2000'
+            'fecha_vencimiento' => '20/10/2023'
         ]);
         Tarea::create([
-            'titulo' => 'Ejemplo tarea 2',
-            'descripcion' => 'Descripcion del ejemplo de la tarea',
+            'titulo' => 'Terminar uñas ',
+            'descripcion' => 'Terminar set universal violeta',
             'estado' => 0,
-            'fecha_vencimiento' => '11/12/2000'
+            'fecha_vencimiento' => '22/10/2023'
         ]);
         Tarea::create([
-            'titulo' => 'Ejemplo tarea 3',
-            'descripcion' => 'Descripcion del ejemplo de la tarea',
+            'titulo' => 'Revisar stock',
+            'descripcion' => 'Revisar cuantos pegamentos liquidos quedan',
             'estado' => 0,
-            'fecha_vencimiento' => '11/12/2000'
+            'fecha_vencimiento' => '20/10/2023'
         ]);
         Tarea::create([
-            'titulo' => 'Ejemplo tarea 4',
+            'titulo' => 'Revisar stock',
             'descripcion' => 'Descripcion del ejemplo de la tarea',
-            'estado' => 0,
-            'fecha_vencimiento' => '11/12/2000'
+            'estado' => 1,
+            'fecha_vencimiento' => '21/10/2023'
         ]);
         Tarea::create([
-            'titulo' => 'Ejemplo tarea 5',
-            'descripcion' => 'Descripcion del ejemplo de la tarea',
-            'estado' => 0,
-            'fecha_vencimiento' => '11/12/2000'
+            'titulo' => 'Publicar ofertas',
+            'descripcion' => 'Publicar ofertas en instagram',
+            'estado' => 1,
+            'fecha_vencimiento' => '15/10/2023'
         ]);
         Tarea::create([
-            'titulo' => 'Ejemplo tarea 6',
-            'descripcion' => 'Descripcion del ejemplo de la tarea',
-            'estado' => 0,
-            'fecha_vencimiento' => '11/12/2000'
+            'titulo' => 'Cargar stock',
+            'descripcion' => 'Cargar nuevos sets a la pagina',
+            'estado' => 1,
+            'fecha_vencimiento' => '17/10/2023'
         ]);
     }
 }
