@@ -17,6 +17,7 @@ class InsumosController extends Controller
 
     public function store(Request $request)
     {
+        
         $insumo = new insumo();
         $insumo->nombre = $request->input('nombre');
         $insumo->descripcion = $request->input('descripcion');
