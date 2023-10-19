@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('titulo');
             $table->string('descripcion');
             $table->integer('estado');
-            $table->date('fecha_vencimiento');
+            $table->date('fecha_vencimiento')->nullable();
             $table->timestamps();
         });
     }
