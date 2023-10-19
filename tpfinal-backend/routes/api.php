@@ -19,13 +19,10 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-
-
-
 require __DIR__.'/auth.php';
 require __DIR__ . '/auth.php';
 require __DIR__ . '/insumos.php';
 require __DIR__ . '/ciudades.php';
 require __DIR__ . '/sets.php';
 require __DIR__ . '/productos.php';
+require __DIR__ . '/tareas.php';
