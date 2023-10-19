@@ -11,9 +11,11 @@ use App\Models\insumoProducto;
 
 class ProductosController extends Controller
 {
+
+
     public function index()
     {
-        $productos = producto::with('set', 'set.categoriaSet', 'set.tip', 'ciudad')->get();
+        $productos = producto::with('set', 'set.categoriaSet', 'set.tip', 'ciudad', 'insumos')->get();
         return response()->json($productos);
     }
 
@@ -98,7 +100,7 @@ class ProductosController extends Controller
 
     public function show($id)
     {
-        $producto = producto::with(['set', 'set.categoriaSet', 'set.tip', 'ciudad'])->find($id);
+        $producto = producto::with(['set', 'set.categoriaSet', 'set.tip', 'ciudad', 'insumos'])->find($id);
         // $productoInfo = $producto->with('set', 'set.categoriaSet', 'set.tip', 'ciudad')->get();
         return response()->json($producto);
     }
