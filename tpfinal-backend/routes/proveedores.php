@@ -9,7 +9,7 @@ Route::group(['middleware' => ['rol:1']], function () {
     Route::get('/proveedor/{id}', [ProveedorController::class, 'show']);
     Route::post('/proveedorStore', [ProveedorController::class, 'store']);
     Route::post('/proveedorUpdate/{id}', [ProveedorController::class, 'update']);
-    Route::post('/proveedorDelete/{id}', [ProveedorController::class, 'delete']);
+    Route::delete('/proveedorDelete/{id}', [ProveedorController::class, 'delete']);
 });
 
 
