@@ -16,7 +16,7 @@ class ProductosTableSeeder extends Seeder
         producto::create([//1
             'nombre'=> 'Corazones lila baby square', 
             'descripcion' => 'Uñas lilas lisas y uñas claritas con corazones lilas, cortas', 
-            'id_ciudad'=> 1, 
+            'id_ciudad'=> 2, 
             'precio'=> 1600, 
             'estado'=> 1, 
             'url_imagen' => '/productos/corazones-lila-baby-square.png', 
@@ -25,7 +25,7 @@ class ProductosTableSeeder extends Seeder
         producto::create([//2
             'nombre'=> 'Lineas curvas verde agua almendra largas', 
             'descripcion' => 'Uñas verde agua con líneas curvas verde oscuro, almendra largas', 
-            'id_ciudad'=> 1, 
+            'id_ciudad'=> 2, 
             'precio'=> 1500, 
             'estado'=> 1, 
             'url_imagen' => '/productos/lineas-2-verdeagua-almendra-largas.png', 
@@ -34,7 +34,7 @@ class ProductosTableSeeder extends Seeder
         producto::create([//3
             'nombre'=> 'Negro baby square', 
             'descripcion' => 'Uñas negras lisas, cortas', 
-            'id_ciudad'=> 1, 
+            'id_ciudad'=> 3, 
             'precio'=> 1500, 
             'estado'=> 1, 
             'url_imagen' => '/productos/negro-baby-square.png', 
@@ -44,7 +44,7 @@ class ProductosTableSeeder extends Seeder
         producto::create([//4
             'nombre'=> 'Amarillo coffin largas', 
             'descripcion' => 'Uñas amarillas lisas, largas', 
-            'id_ciudad'=> 1, 
+            'id_ciudad'=> 3, 
             'precio'=> 1500, 
             'estado'=> 1, 
             'url_imagen' => '/productos/amarillo-coffin-largas.png', 
