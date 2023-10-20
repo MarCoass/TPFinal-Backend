@@ -17,6 +17,7 @@ class InsumosController extends Controller
 
     public function store(Request $request)
     {
+        
         $insumo = new insumo();
         $insumo->nombre = $request->input('nombre');
         $insumo->descripcion = $request->input('descripcion');
@@ -34,9 +35,9 @@ class InsumosController extends Controller
         return response()->json(['message' => 'Datos guardados exitosamente'], 200);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $insumo = insumo::find($request->input('id'));
+        $insumo = insumo::find($id);
         $insumo->nombre = $request->input('nombre');
         $insumo->descripcion = $request->input('descripcion');
         $insumo->marca = $request->input('marca');

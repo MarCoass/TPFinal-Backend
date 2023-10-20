@@ -20,14 +20,11 @@ class InsumoProductoController extends Controller
         $insumoProductos = insumoProducto::where('id_producto', $id)->get();
         return response()->json($insumoProductos);
     }
-    
 
     public function actualizarCantidad(Request $request){
-        
         $id_insumo = $request->input('id_insumo');
         $id_prodducto = $request->input('id_producto');
         $insumoProducto = insumoProducto::where('id_insumo', $id_insumo)->where('id_producto', $id_prodducto)->first();
-        
         $insumoProducto->cantidad = $request->input('cantidad');
         $insumoProducto->save();
         return response()->json(['message' => 'Producto actualizado exitosamente'], 200);
