@@ -123,4 +123,11 @@ class ProductosController extends Controller
 
         return response()->json(['message' => 'Eliminado exitosamente'], 200);
     }
+
+    public function actualizarStock(Request $request, $id){
+        $producto = producto::find($id);
+        $producto->stock = $request->input('stock');
+        $producto->save();
+        return response()->json(['Cantidad actualizada', 200]);
+    }
 }
