@@ -14,4 +14,7 @@ class proveedor extends Model
         'tags' => 'array',
     ];
 
+    public function preciosProveedores(){
+        return $this->hasMany(precioProveedor::class, 'id_producto', 'id');
+    }
 }

@@ -27,4 +27,8 @@ class insumo extends Model
         return $this->belongsToMany(Producto::class, 'insumo_productos', 'id_insumo', 'id_producto')
             ->withPivot('cantidad');
     }
+
+    public function preciosProveedores(){
+        return $this->hasMany(precioProveedor::class, 'id_insumo', 'id');
+    }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoriaInsumos;
 use App\Http\Controllers\InsumosController;
+use App\Http\Controllers\PrecioProveedoresController;
 use App\Http\Controllers\TipsController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,4 +38,10 @@ Route::group(['middleware' => ['rol:1']], function () {
     
 
     Route::get('/administracion/categoriasInsumos', [CategoriaInsumos::class, 'index']);
+
+    
+    Route::post('/precioStore', [PrecioProveedoresController::class, 'store']);
+    Route::post('/precioUpdate/{id}', [PrecioProveedoresController::class, 'update']);
+    Route::delete('/precioDelete/{id}', [PrecioProveedoresController::class, 'delete']);
+    Route::get('/precio/{id}', [PrecioProveedoresController::class, 'show']);
 });
