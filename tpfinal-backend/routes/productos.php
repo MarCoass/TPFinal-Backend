@@ -10,6 +10,7 @@ Route::group(['middleware' => ['rol:1']], function () {
     Route::delete('/administracion/productoDelete/{id}', [ProductosController::class, 'delete']);
     Route::post('/administracion/productoUpdate/{id}', [ProductosController::class, 'update']);
     Route::get('/insumosUsados/{id}', [InsumoProductoController::class, 'buscarPorProducto']);
+    Route::post('/administracion/actualizarStockProducto/{id}',[ProductosController::class, 'actualizarStock']);
 });
 
 Route::get('/administracion/producto/{id}', [ProductosController::class, 'show']);

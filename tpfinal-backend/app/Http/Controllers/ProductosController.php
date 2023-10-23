@@ -7,7 +7,9 @@ use App\Models\producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\set;
+use App\Http\Controllers\InsumoProductoController;
 use App\Models\insumoProducto;
+use App\Models\insumo;
 
 class ProductosController extends Controller
 {
@@ -122,5 +124,60 @@ class ProductosController extends Controller
         }
 
         return response()->json(['message' => 'Eliminado exitosamente'], 200);
+    }
+
+    public function actualizarStock(Request $request, $id)
+    {
+        $producto = producto::find($id);
+        $stockViejo = $producto->stock;
+        $stockNuevo =  $request->input('stock');
+        if ($stockNuevo > $stockViejo) {
+            //en caso de que se este agregando nuevo stock
+            $cantProductos = $stockNuevo - $stockViejo;
+            $stockSuficiente = $this->stockSuficiente($cantProductos, $id);
+
+            $tieneStockInsuficiente = collect($stockSuficiente)->contains(function ($insumo) {
+                return $insumo['stock_suficiente'] === false;
+            });
+
+            if ($tieneStockInsuficiente) {
+                $faltantes = $this->insumosFaltantes($stockSuficiente);
+                return response()->json(['insumos_faltantes' => $faltantes, 'mensaje' => 'No es posible actualizar el stock por faltante de insumos.']);
+            } else {
+                $descontarProductos = new InsumoProductoController;
+                $rta = $descontarProductos->modificarStockPorProductos($cantProductos, $id);
+            }
+        }
+        $producto->stock = $stockNuevo;
+        $producto->save();
+        return response()->json(['Cantidad actualizada', 200]);
+    }
+
+    /**
+     * Revisa por cada insumo utilizado si el stock alcanza para realizar la cantidad necesaria de cierto producto
+     */
+    public function stockSuficiente($cantProductos, $id)
+    {
+        $insumosUsados = insumoProducto::where('id_producto', $id)->get();;
+        $rta = [];
+
+        foreach ($insumosUsados as $insumoUsado) {
+            $insumo = insumo::find($insumoUsado->id);
+            $cantidadNecesaria = $insumoUsado->cantidad * $cantProductos;
+            $stockSuficiente = $insumo->stock >= $cantidadNecesaria;
+            $rta[] = ['id' => $insumoUsado->id_insumo, 'nombre_insumo' => $insumo->nombre, 'stock_suficiente' => $stockSuficiente];
+        }
+        return $rta;
+    }
+
+    private function insumosFaltantes($arrayInsumos)
+    {
+        $faltantes = [];
+        foreach ($arrayInsumos as $insumo) {
+            if ($insumo['stock_suficiente'] === false) {
+                $faltantes[] = $insumo;
+            }
+        }
+        return $faltantes;
     }
 }
