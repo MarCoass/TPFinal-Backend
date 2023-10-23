@@ -80,13 +80,14 @@ class SetController extends Controller
     public function delete($id)
     {
         $set = Set::find($id);
-        $id_producto = $set->Producto();
-
+        $id_producto = $set->producto->id; // Accede al producto y obtén su ID.
+    
         $set->delete();
         $productoController = new ProductosController();
         $productoResponse = $productoController->delete($id_producto);
         return response()->json(['message' => 'Set eliminado correctamente'], 200);
     }
+    
 
     public function esSet($id){
         
