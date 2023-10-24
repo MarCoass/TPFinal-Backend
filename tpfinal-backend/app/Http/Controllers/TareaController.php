@@ -31,7 +31,7 @@ class TareaController extends Controller
         $tarea = Tarea::find($id);
        
         $tarea->delete();
-        return response()->json(['Tarea eliminada correctamente', 200]);
+        return response()->json(['exito'=>true, 200]);
     }
 
     //update

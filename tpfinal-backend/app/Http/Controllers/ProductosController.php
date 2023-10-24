@@ -142,7 +142,7 @@ class ProductosController extends Controller
 
             if ($tieneStockInsuficiente) {
                 $faltantes = $this->insumosFaltantes($stockSuficiente);
-                return response()->json(['insumos_faltantes' => $faltantes, 'mensaje' => 'No es posible actualizar el stock por faltante de insumos.']);
+                return response()->json(['insumos_faltantes' => $faltantes, 'exito' => false]);
             } else {
                 $descontarProductos = new InsumoProductoController;
                 $rta = $descontarProductos->modificarStockPorProductos($cantProductos, $id);
@@ -150,7 +150,7 @@ class ProductosController extends Controller
         }
         $producto->stock = $stockNuevo;
         $producto->save();
-        return response()->json(['Cantidad actualizada', 200]);
+        return response()->json(['exito' => true, 200]);
     }
 
     /**
