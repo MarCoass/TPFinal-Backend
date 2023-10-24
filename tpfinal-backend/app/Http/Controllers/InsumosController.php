@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\categoriaInsumo;
+use App\Models\esmalte;
 use App\Models\insumo;
+use App\Models\tip;
 use Illuminate\Http\Request;
 
 class InsumosController extends Controller
@@ -56,6 +58,8 @@ class InsumosController extends Controller
     public function delete($id)
     {
         $insumo = insumo::find($id);
+        $tip = tip::where('id_insumo', $id)->delete();
+        $esmalte = esmalte::where('id_insumo', $id)->delete();
         $insumo->delete();
         return response()->json(['message' => 'Eliminado exitosamente'], 200);
     }
