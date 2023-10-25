@@ -12,6 +12,7 @@ Route::group(['middleware' => ['rol:1']], function () {
     Route::post('/administracion/insumoStore', [InsumosController::class, 'store']);
     Route::delete('/administracion/insumosDelete/{id}', [InsumosController::class, 'delete']);
     Route::post('/administracion/insumosUpdate/{id}', [InsumosController::class, 'update']);
+    Route::post('/administracion/insumoStockUpdate/{id}', [InsumosController::class, 'stockUpdate']);
     Route::get('/administracion/insumo/{id}', [InsumosController::class, 'show']);
 
 
