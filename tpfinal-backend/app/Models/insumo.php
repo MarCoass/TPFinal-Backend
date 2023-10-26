@@ -17,7 +17,7 @@ class insumo extends Model
     ];
     
     //funciones por la clave foranea
-    public function CategoriaInsumo()
+    public function Categoria()
     {
         return $this->belongsTo(CategoriaInsumo::class, 'id_categoria');
     }
