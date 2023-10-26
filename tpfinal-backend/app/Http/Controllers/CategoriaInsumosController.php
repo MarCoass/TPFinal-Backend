@@ -25,6 +25,20 @@ class CategoriaInsumosController extends Controller
         $categoria = categoriaInsumo::find($id);
         $categoria->nombre = $request->input('nombre');
         $categoria->save();
-        return response()->json(['exito' => true, 'message' => 'Producto actualizado exitosamente'], 200);
+        return response()->json(['exito' => true, 'message' => 'Categoria actualizada exitosamente'], 200);
+    }
+
+    public function store(Request $request)
+    {
+        $categoria = new categoriaInsumo;
+        $categoria->nombre = $request->input('nombre');
+        $categoria->save();
+        return response()->json(['exito' => true, 'message' => 'Categoria actualizada exitosamente'], 200);
+    }
+
+    public function delete($id){
+        $categoria = categoriaInsumo::find($id);
+        $categoria->delete();
+        return response()->json(['exito' => true, 'message' => 'Categoria eliminada exitosamente'], 200);
     }
 }
