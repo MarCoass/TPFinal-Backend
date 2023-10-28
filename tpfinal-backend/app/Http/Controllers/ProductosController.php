@@ -5,19 +5,25 @@ namespace App\Http\Controllers;
 use App\Models\Ciudad;
 use App\Models\producto;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
+use App\Models\set;
+use App\Http\Controllers\InsumoProductoController;
+use App\Models\insumoProducto;
+use App\Models\insumo;
 
 class ProductosController extends Controller
 {
+
+
     public function index()
     {
-        $productos = producto::all();
+        $productos = producto::with('set', 'set.categoriaSet', 'set.tip', 'ciudad', 'insumos')->get();
         return response()->json($productos);
     }
 
     public function store(Request $request)
     {
-        //$this->authorize(true);
+
         $producto = new producto();
         $producto->nombre = $request->input('nombre');
         $producto->descripcion = $request->input('descripcion');
@@ -38,11 +44,25 @@ class ProductosController extends Controller
         $producto->Ciudad()->associate($ciudad);
 
         $producto->save();
-        return response()->json(['message' => 'Datos guardados exitosamente'], 200);
+
+        $id_producto = $producto->id;
+        // Decodificar la cadena JSON en un array asociativo
+        $cantidadesInsumos = json_decode($request->input('cantidadesInsumos'), true);
+
+        $insumoProducto = new InsumoProductoController();
+
+        // Iterar sobre el array de cantidadesInsumos
+        foreach ($cantidadesInsumos as $id_insumo => $cantidad) {
+            // Llamar a la función store para cada par id_insumo y cantidad
+            $insumoProducto->store($id_producto, $id_insumo, $cantidad);
+        }
+
+        return response()->json(['id' => $producto->id], 200);
     }
 
     public function update(Request $request, $id)
     {
+
         // Busca el producto por su ID
         $producto = producto::find($id);
 
@@ -79,29 +99,82 @@ class ProductosController extends Controller
 
     public function show($id)
     {
-        $producto = producto::find($id);
+        $producto = producto::with(['set', 'set.categoriaSet', 'set.tip', 'ciudad', 'insumos'])->find($id);
+        // $productoInfo = $producto->with('set', 'set.categoriaSet', 'set.tip', 'ciudad')->get();
         return response()->json($producto);
     }
 
     public function delete($id)
     {
-        $producto = producto::find($id);
-        $producto->delete();
+        //revisa si es set
+        $set = set::where('id_producto', $id)->first();
+
+        //eliminar los insumos_productos
+        InsumoProducto::where('id_producto', $id)->delete();
+        if ($set) {
+            $setController = new SetController();
+            $setDelete = $setController->delete($set->id);
+            return response()->json(['message' => 'Eliminado exitosamente'], 200);
+        } else {
+            $producto = producto::find($id);
+            $producto->delete();
+        }
+
         return response()->json(['message' => 'Eliminado exitosamente'], 200);
     }
 
-    //descuenta del stock del producto la cantidad recibida
-    public function descontarProducto($id_producto, $cantidad)
+    public function actualizarStock(Request $request, $id)
     {
-        $producto = producto::find($id_producto);
-        $producto->stock =  $producto->stock - $cantidad;
+        $producto = producto::find($id);
+        $stockViejo = $producto->stock;
+        $stockNuevo =  $request->input('stock');
+        if ($stockNuevo > $stockViejo) {
+            //en caso de que se este agregando nuevo stock
+            $cantProductos = $stockNuevo - $stockViejo;
+            $stockSuficiente = $this->stockSuficiente($cantProductos, $id);
+
+            $tieneStockInsuficiente = collect($stockSuficiente)->contains(function ($insumo) {
+                return $insumo['stock_suficiente'] === false;
+            });
+
+            if ($tieneStockInsuficiente) {
+                $faltantes = $this->insumosFaltantes($stockSuficiente);
+                return response()->json(['insumos_faltantes' => $faltantes, 'exito' => false]);
+            } else {
+                $descontarProductos = new InsumoProductoController;
+                $rta = $descontarProductos->modificarStockPorProductos($cantProductos, $id);
+            }
+        }
+        $producto->stock = $stockNuevo;
         $producto->save();
+        return response()->json(['exito' => true, 200]);
     }
 
-    //descuenta del stock del producto la cantidad recibida
-    public function validarStock($id_producto, $cantidad)
+    /**
+     * Revisa por cada insumo utilizado si el stock alcanza para realizar la cantidad necesaria de cierto producto
+     */
+    public function stockSuficiente($cantProductos, $id)
     {
-        $producto = producto::find($id_producto);
-        return $producto->stock >= $cantidad;
+        $insumosUsados = insumoProducto::where('id_producto', $id)->get();;
+        $rta = [];
+
+        foreach ($insumosUsados as $insumoUsado) {
+            $insumo = insumo::find($insumoUsado->id);
+            $cantidadNecesaria = $insumoUsado->cantidad * $cantProductos;
+            $stockSuficiente = $insumo->stock >= $cantidadNecesaria;
+            $rta[] = ['id' => $insumoUsado->id_insumo, 'nombre_insumo' => $insumo->nombre, 'stock_suficiente' => $stockSuficiente];
+        }
+        return $rta;
+    }
+
+    private function insumosFaltantes($arrayInsumos)
+    {
+        $faltantes = [];
+        foreach ($arrayInsumos as $insumo) {
+            if ($insumo['stock_suficiente'] === false) {
+                $faltantes[] = $insumo;
+            }
+        }
+        return $faltantes;
     }
 }

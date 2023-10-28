@@ -12,18 +12,19 @@ class Set extends Model
     protected $table = 'sets';
     
     //funciones por la clave foranea
-    public function Categoria()
+    public function CategoriaSet()
     {
         return $this->belongsTo(CategoriaSet::class, 'id_categoria');
     }
 
-    public function Tips()
+    public function Tip()
     {
         return $this->belongsTo(Tip::class, 'id_tips');
     }
+
     public function Producto()
     {
-        return $this->belongsTo(Productos::class, 'id_producto');
+        return $this->belongsTo(producto::class, 'id_producto');
     }
 
 }

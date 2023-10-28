@@ -13,19 +13,23 @@ class UserController extends Controller
     {
         //validar los datos del formulario
         $request->validate([
-            'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255',
             'email' => 'required|string|email|unique:users|max:255',
             'password' => 'required|string|min:8',
         ]);
 
         //crear un nuevo usario en la bd
         $user = new User([
-            'name' => $request->input('name'),
+            'username' => $request->input('username'),
+            'nombre' => $request->input('nombre'),
+            'apellido'=> $request->input('apellido'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
-            'idRol' => 2
+            'num_telefono' => $request->input('num_telefono'),
+            'id_rol' => 2
 
         ]);
+        
 
         $user->save();
 
