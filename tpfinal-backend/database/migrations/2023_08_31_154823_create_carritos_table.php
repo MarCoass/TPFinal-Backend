@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_usuario');
             $table->json('id_productos')->nullable();
             $table->integer('estado');
-            $table->float('precio_total')->nullable();
+            $table->float('id_ciudad')->nullable();
             $table->timestamps();
 
             $table->foreign('id_usuario')->references('id')->on('users');
