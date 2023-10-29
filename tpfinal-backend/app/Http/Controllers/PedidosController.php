@@ -24,4 +24,12 @@ class PedidosController extends Controller
     //update
 
     //delete
+
+    //cambiar estado
+    public function cambiarEstado(Request $request, $id){
+        $pedido = pedidoPersonalizado::find($id);
+        $pedido->estado = $request->input('estado');
+        $pedido->save();
+        return response()->json(['exito'=>true, 'message'=>'Estado actualizado correctamente.']);
+    }
 }
