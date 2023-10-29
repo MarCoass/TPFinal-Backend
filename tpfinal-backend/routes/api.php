@@ -27,3 +27,6 @@ require __DIR__ . '/sets.php';
 require __DIR__ . '/productos.php';
 require __DIR__ . '/tareas.php';
 require __DIR__ . '/proveedores.php';
+require __DIR__ . '/categorias.php';
+require __DIR__ . '/pedidos.php';
+require __DIR__ . '/cliente.php';

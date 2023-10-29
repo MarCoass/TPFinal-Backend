@@ -15,7 +15,7 @@ class InsumosController extends Controller
 
     public function index()
     {
-        $insumos = insumo::with('preciosProveedores.proveedor')->get();
+        $insumos = insumo::with('preciosProveedores.proveedor', 'categoria')->get();
         return response()->json($insumos);
     }
 
@@ -36,7 +36,7 @@ class InsumosController extends Controller
         $insumo->CategoriaInsumo()->associate($categoria);
 
         $insumo->save();
-        return response()->json(['message' => 'Datos guardados exitosamente'], 200);
+        return response()->json(['exito' => true, 'message' => 'Datos guardados exitosamente'], 200);
     }
 
     public function update(Request $request, $id)
@@ -54,7 +54,7 @@ class InsumosController extends Controller
         $insumo->CategoriaInsumo()->associate($categoria);
 
         $insumo->save();
-        return response()->json(['message' => 'Datos guardados exitosamente'], 200);
+        return response()->json(['exito' => true, 'message' => 'Datos guardados exitosamente'], 200);
     }
 
     public function delete($id)
@@ -85,7 +85,15 @@ class InsumosController extends Controller
 
     public function show($id)
     {
-        $insumo = insumo::with('preciosProveedores.proveedor')->find($id);
+        $insumo = insumo::with('preciosProveedores.proveedor', 'categoria')->find($id);
         return response()->json($insumo);
+    }
+
+    public function stockUpdate(Request $request, $id)
+    {
+        $insumo = insumo::find($id);
+        $insumo->stock = $request->input('stock');
+        $insumo->save();
+        return response()->json(['exito' => true, 'message' => 'Stock modificado exitosamente', 200]);
     }
 }
