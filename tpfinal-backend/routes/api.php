@@ -30,3 +30,4 @@ require __DIR__ . '/proveedores.php';
 require __DIR__ . '/categorias.php';
 require __DIR__ . '/pedidos.php';
 require __DIR__ . '/cliente.php';
+require __DIR__ . '/carrito.php';
