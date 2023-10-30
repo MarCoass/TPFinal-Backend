@@ -17,7 +17,7 @@ class PedidosTableSeeder extends Seeder
             'id_producto' => '1',
             'fecha_entrega' => '30/10/2023',
             'estado' => '0',
-            'id_usuario' => '2'
+            'id_usuario' => '3'
         ]);
     }
 }
