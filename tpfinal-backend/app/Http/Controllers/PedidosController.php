@@ -30,6 +30,11 @@ class PedidosController extends Controller
         $pedido = pedidoPersonalizado::find($id);
         $pedido->estado = $request->input('estado');
         $pedido->save();
+        if($request->input('estado')==5){
+            $mensaje = new WhatsappController();
+            $respuestaMensaje = $mensaje->notificarPedidoTerminado($id);
+            return response()->json(['exito'=>true, 'message'=>'Estado actualizado correctamente.', 'mensaje' => $respuestaMensaje]);
+        }
         return response()->json(['exito'=>true, 'message'=>'Estado actualizado correctamente.']);
     }
 }
