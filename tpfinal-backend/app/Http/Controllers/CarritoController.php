@@ -5,19 +5,62 @@ namespace App\Http\Controllers;
 use App\Models\carrito;
 use App\Models\producto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CarritoController extends Controller
 {
     //Obtiene el carrito actual del usuario autenticado
+    // public function verCarritoActual()
+    // {
+
+    //     $user = auth()->user();
+
+    //     //trae el ultimo carrito carrito con estado '0' 
+    //     $carrito = carrito::where('id_usuario', $user->id)->where('estado', 0)->first();
+    //     return response()->json($carrito);
+    // }
+
     public function verCarritoActual()
     {
-
         $user = auth()->user();
-
-        //trae el ultimo carrito carrito con estado '0' 
+    
+        // Trae el último carrito con estado '0' del usuario
         $carrito = carrito::where('id_usuario', $user->id)->where('estado', 0)->first();
+    
+        if ($carrito) {
+            // Obten productos en el carrito actual
+            $productosEnCarrito = $this->productosEnCarritoActual($carrito->id);
+            $carrito->productos = $productosEnCarrito;
+        }
+    
         return response()->json($carrito);
     }
+
+// Función para recuperar los productos del carrito
+public function productosEnCarritoActual($carritoId)
+{
+    $carrito = DB::table('carritos')
+        ->where('id', $carritoId)
+        ->first();
+
+        if ($carrito) {
+            $id_productos = json_decode($carrito->id_productos);
+        
+            if ($id_productos) {
+                // Aquí seleccionas los productos en el carrito
+                $productosEnCarrito = DB::table('productos')
+                    ->whereIn('id', array_column($id_productos, 'id_producto'))
+                    ->get();
+        
+                // Devuelves la respuesta JSON
+                return response()->json($productosEnCarrito);
+            }
+        }
+        
+        // Si no hay carrito o no contiene productos, puedes devolver una respuesta vacía
+        return response()->json([]);
+        
+}
 
     //Obtiene todos los carritos del usuario 
     public function verCarritosUsuario($id_usuario)
