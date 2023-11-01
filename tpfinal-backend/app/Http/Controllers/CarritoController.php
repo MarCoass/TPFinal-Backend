@@ -6,6 +6,8 @@ use App\Models\carrito;
 use App\Models\producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\ProductosController;
+
 
 class CarritoController extends Controller
 {
@@ -29,12 +31,29 @@ class CarritoController extends Controller
     
         if ($carrito) {
             // Obten productos en el carrito actual
-            $productosEnCarrito = $this->productosEnCarritoActual($carrito->id);
+            $productosEnCarrito = $this->obtenerProductosCarrito($carrito->id_productos);
             $carrito->productos = $productosEnCarrito;
         }
     
         return response()->json($carrito);
     }
+
+    public function obtenerProductosCarrito($arrayProductos){
+       
+        $productosController = new ProductosController();
+        $productos=[];
+        foreach ($arrayProductos as $producto) {
+            // $producto = json_decode($productoJSON, true);
+            $productoInfo = $productosController->show($producto['id_producto']);
+            if ($productoInfo) {
+                array_push($productos, $productoInfo);
+            }
+        }
+        return $productos;
+    }
+
+
+
 
 // Función para recuperar los productos del carrito
 public function productosEnCarritoActual($carritoId)
