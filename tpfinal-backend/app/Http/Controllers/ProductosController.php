@@ -17,7 +17,12 @@ class ProductosController extends Controller
 
     public function index()
     {
-        $productos = producto::with('set', 'set.categoriaSet', 'set.tip', 'ciudad', 'insumos')->get();
+        /* $productos = producto::with('set', 'set.categoriaSet', 'set.tip', 'ciudad', 'insumos')->get(); */
+        $productos = Producto::with('set', 'set.categoriaSet', 'set.tip', 'ciudad', 'insumos')
+            ->whereHas('set', function ($query) {
+                $query->where('id_categoria', '!=', 4);
+            })
+            ->get();
         return response()->json($productos);
     }
 

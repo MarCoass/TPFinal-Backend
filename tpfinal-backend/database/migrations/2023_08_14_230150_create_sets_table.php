@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sets', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_categoria');
-            $table->unsignedBigInteger('id_tips');
+            $table->unsignedBigInteger('id_tips')->nullable();
             $table->unsignedBigInteger('id_producto');
             $table->timestamps();
             // Definición de claves foráneas
