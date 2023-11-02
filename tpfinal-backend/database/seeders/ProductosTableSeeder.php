@@ -177,12 +177,48 @@ class ProductosTableSeeder extends Seeder
             'stock'=> 4
         ]);
         producto::create([//19
-            'nombre'=> 'Uñas de halloween', 
+            'nombre'=> 'Pedido Personalizado', 
             'descripcion' => 'Uñas redondas cortas con decoracion de halloween', 
             'id_ciudad'=> 1, 
             'precio'=> 0, 
             'estado'=> 0, 
             'url_imagen' => '/productos/personalizada1.jpg', 
+            'stock'=> 0
+        ]);
+        producto::create([//20
+            'nombre'=> 'Pedido Personalizado', 
+            'descripcion' => 'Uñas cuadradas grises con un dibujo de Gojo en el dedo medio.', 
+            'id_ciudad'=> 1, 
+            'precio'=> 0, 
+            'estado'=> 0, 
+            'url_imagen' => '/productos/personalizada2.jpg', 
+            'stock'=> 0
+        ]);
+        producto::create([//21
+            'nombre'=> 'Pedido Personalizado', 
+            'descripcion' => 'Uñas stilletto largas degradado de nude a rojo con los dibujos de Sukuna', 
+            'id_ciudad'=> 1, 
+            'precio'=> 0, 
+            'estado'=> 0, 
+            'url_imagen' => '/productos/personalizada3.jpg', 
+            'stock'=> 0
+        ]);
+        producto::create([//22
+            'nombre'=> 'Pedido Personalizado', 
+            'descripcion' => 'Uñas almond degradado nude a verde manzana con dibujitos.', 
+            'id_ciudad'=> 1, 
+            'precio'=> 0, 
+            'estado'=> 0, 
+            'url_imagen' => '/productos/personalizada4.jpg', 
+            'stock'=> 0
+        ]);
+        producto::create([//23
+            'nombre'=> 'Pedido Personalizado', 
+            'descripcion' => 'Uñas almond con french azul y calcifer simpaticon en el indice', 
+            'id_ciudad'=> 1, 
+            'precio'=> 0, 
+            'estado'=> 0, 
+            'url_imagen' => '/productos/personalizada4.jpg', 
             'stock'=> 0
         ]);
     }

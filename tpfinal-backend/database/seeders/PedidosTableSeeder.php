@@ -18,5 +18,25 @@ class PedidosTableSeeder extends Seeder
             'estado' => '0',
             'id_usuario' => '3'
         ]);
+        pedidoPersonalizado::create([
+            'id_producto' => '20',
+            'estado' => '1',
+            'id_usuario' => '3'
+        ]);
+        pedidoPersonalizado::create([
+            'id_producto' => '21',
+            'estado' => '2',
+            'id_usuario' => '3'
+        ]);
+        pedidoPersonalizado::create([
+            'id_producto' => '22',
+            'estado' => '3',
+            'id_usuario' => '3'
+        ]);
+        pedidoPersonalizado::create([
+            'id_producto' => '23',
+            'estado' => '4',
+            'id_usuario' => '3'
+        ]);
     }
 }

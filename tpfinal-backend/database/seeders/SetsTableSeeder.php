@@ -107,6 +107,22 @@ class SetsTableSeeder extends Seeder
             'id_categoria' => '4',
             'id_producto' => '19',
         ]);
+        Set::create([
+            'id_categoria' => '4',
+            'id_producto' => '20',
+        ]);
+        Set::create([
+            'id_categoria' => '4',
+            'id_producto' => '21',
+        ]);
+        Set::create([
+            'id_categoria' => '4',
+            'id_producto' => '22',
+        ]);
+        Set::create([
+            'id_categoria' => '4',
+            'id_producto' => '23',
+        ]);
 
     }
 }
