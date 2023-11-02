@@ -58,4 +58,9 @@ class PedidosController extends Controller
         }
         return response()->json(['exito' => true, 'message' => 'Estado actualizado correctamente.']);
     }
+
+    public function pedidosUsuario($id){
+        $pedidos = pedidoPersonalizado::with('producto')->where('id_usuario', $id)->get();
+        return response()->json($pedidos);
+    }
 }
