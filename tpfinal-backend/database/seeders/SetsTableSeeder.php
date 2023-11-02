@@ -103,6 +103,10 @@ class SetsTableSeeder extends Seeder
             'id_producto' => '18',
             'id_tips' => '6',
         ]);
+        Set::create([
+            'id_categoria' => '4',
+            'id_producto' => '19',
+        ]);
 
     }
 }

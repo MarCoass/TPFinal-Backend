@@ -176,5 +176,14 @@ class ProductosTableSeeder extends Seeder
             'url_imagen' => '/productos/blanco-coffin-largas.png', 
             'stock'=> 4
         ]);
+        producto::create([//19
+            'nombre'=> 'Uñas de halloween', 
+            'descripcion' => 'Uñas redondas cortas con decoracion de halloween', 
+            'id_ciudad'=> 1, 
+            'precio'=> 0, 
+            'estado'=> 0, 
+            'url_imagen' => '/productos/personalizada1.jpg', 
+            'stock'=> 0
+        ]);
     }
 }

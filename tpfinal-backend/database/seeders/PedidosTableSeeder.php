@@ -14,8 +14,7 @@ class PedidosTableSeeder extends Seeder
     public function run(): void
     {
         pedidoPersonalizado::create([
-            'id_producto' => '1',
-            'fecha_entrega' => '30/10/2023',
+            'id_producto' => '19',
             'estado' => '0',
             'id_usuario' => '3'
         ]);
