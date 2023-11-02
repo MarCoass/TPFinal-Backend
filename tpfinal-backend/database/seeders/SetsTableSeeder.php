@@ -103,6 +103,7 @@ class SetsTableSeeder extends Seeder
             'id_producto' => '18',
             'id_tips' => '6',
         ]);
+        //personalizados
         Set::create([
             'id_categoria' => '4',
             'id_producto' => '19',

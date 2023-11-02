@@ -28,6 +28,11 @@ class PedidosController extends Controller
     //update
 
     //delete
+    public function delete($id){
+        $pedido = pedidoPersonalizado::find($id);
+        $pedido->delete();
+        return response()->json(['exito' => true, 'message' => 'Pedido eliminado correctamente.']);
+    }
 
     //cambiar estado
     public function cambiarEstado(Request $request, $id)
