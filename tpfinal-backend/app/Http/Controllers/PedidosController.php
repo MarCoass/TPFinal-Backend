@@ -46,20 +46,22 @@ class PedidosController extends Controller
 
         $pedido->save();
         if ($request->input('estado') == 1) {
-            //ACA VA EL OTRO TEMPLATE
-            /*  $mensaje = new WhatsappController();
-            $respuestaMensaje = $mensaje->notificarPedidoTerminado($id);
-            return response()->json(['exito'=>true, 'message'=>'Estado actualizado correctamente.', 'mensaje' => $respuestaMensaje]); */
+            $mensaje = new WhatsappController();
+            /*  $respuestaMensaje = $mensaje->notificarCotizacion($id); */
+            $respuestaMensaje = 'No mando el mensaje para no sumar mas dolares';
+            return response()->json(['exito' => true, 'message' => 'Estado actualizado correctamente.', 'mensaje' => $respuestaMensaje]);
         }
         if ($request->input('estado') == 5) {
             $mensaje = new WhatsappController();
-            $respuestaMensaje = $mensaje->notificarPedidoTerminado($id);
+            /*   $respuestaMensaje = $mensaje->notificarPedidoTerminado($id); */
+            $respuestaMensaje = 'No mando el mensaje para no sumar mas dolares';
             return response()->json(['exito' => true, 'message' => 'Estado actualizado correctamente.', 'mensaje' => $respuestaMensaje]);
         }
         return response()->json(['exito' => true, 'message' => 'Estado actualizado correctamente.']);
     }
 
-    public function pedidosUsuario($id){
+    public function pedidosUsuario($id)
+    {
         $pedidos = pedidoPersonalizado::with('producto')->where('id_usuario', $id)->get();
         return response()->json($pedidos);
     }
