@@ -28,7 +28,8 @@ class PedidosController extends Controller
     //update
 
     //delete
-    public function delete($id){
+    public function delete($id)
+    {
         $pedido = pedidoPersonalizado::find($id);
         $pedido->delete();
         return response()->json(['exito' => true, 'message' => 'Pedido eliminado correctamente.']);
@@ -50,20 +51,14 @@ class PedidosController extends Controller
         }
 
         $pedido->save();
-        if ($request->input('estado') == 1) {
+        if ($request->input('estado') == 1 || $request->input('estado') == 5) {
             $mensaje = new WhatsappController();
-            /*  $respuestaMensaje = $mensaje->notificarCotizacion($id); */
-            $respuestaMensaje = 'No mando el mensaje para no sumar mas dolares';
-            return response()->json(['exito' => true, 'message' => 'Estado actualizado correctamente.', 'mensaje' => $respuestaMensaje]);
-        }
-        if ($request->input('estado') == 5) {
-            $mensaje = new WhatsappController();
-            /*   $respuestaMensaje = $mensaje->notificarPedidoTerminado($id); */
-            $respuestaMensaje = 'No mando el mensaje para no sumar mas dolares';
-            return response()->json(['exito' => true, 'message' => 'Estado actualizado correctamente.', 'mensaje' => $respuestaMensaje]);
+            $respuestaMensaje = $mensaje->enviarMensaje($id, $request->input('estado'));
+            /*    $respuestaMensaje = 'No mando el mensaje para no sumar mas dolares'; */
         }
         return response()->json(['exito' => true, 'message' => 'Estado actualizado correctamente.']);
     }
+
 
     public function pedidosUsuario($id)
     {
