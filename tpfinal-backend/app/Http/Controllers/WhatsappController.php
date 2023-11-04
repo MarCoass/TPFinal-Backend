@@ -9,81 +9,50 @@ use App\Models\User;
 
 class WhatsappController extends Controller
 {
-    //
-    public function ejemplo()
+
+    /**
+     * Se encarga de armar un array con la informacion necesaria para el envio de un mensaje
+     */
+    public function mensajeBase($idPedido)
     {
-        $token = 'EAAbJ3wTRTZA8BOZC22mvkYnaFqXIXe9cjSXMWjDbloR9LhM1pQj6719eGmloq8aw3I1mI4b3hkkyiPyibOi6mWmjiBHZC95me4lWsLXvFGYeOrGHS9TtnE7ElnhhOMojXxtplvUJaQsgByfjsmGF8fFYZCq5FTrAMYNJFSD0R8hespRWxzpZAK5aDSWAx90jCmi1x7jZAAPGbwmSFy';
-        $phoneId = '151738844691434';
-        $version = 'v17.0';
-        $payload = [
-            "messaging_product" => "whatsapp",
-            "to" => "542994677550",
-            "type" => "template",
-            "template" => [
-                "name" => "prueba",
-                "language" => [
-                    "code" => "es_AR"
-                ]
-            ]
-        ];
-        
-
-        $respuesta = Http::withToken($token)->withOptions([
-            'verify' => resource_path('certificates/cacert.pem')
-        ])->post('https://graph.facebook.com/' . $version . '/' . $phoneId . '/messages', $payload)->json();
-
-        return response()->json($respuesta);
-    }
-
-    public function notificarPedidoTerminado($idPedido){
         $pedido = pedidoPersonalizado::find($idPedido);
         $usuario = User::find($pedido->id_usuario);
         $numero = '54' . $usuario->num_telefono;
 
-        $token = 'EAAbJ3wTRTZA8BOZC22mvkYnaFqXIXe9cjSXMWjDbloR9LhM1pQj6719eGmloq8aw3I1mI4b3hkkyiPyibOi6mWmjiBHZC95me4lWsLXvFGYeOrGHS9TtnE7ElnhhOMojXxtplvUJaQsgByfjsmGF8fFYZCq5FTrAMYNJFSD0R8hespRWxzpZAK5aDSWAx90jCmi1x7jZAAPGbwmSFy';
-        $phoneId = '151738844691434';
+        $token = env('WHATSAPP_TOKEN');
+        $phoneId = env('WHATSAPP_PHONEID');
         $version = 'v17.0';
         $payload = [
             "messaging_product" => "whatsapp",
             "to" => $numero,
             "type" => "template",
             "template" => [
-                "name" => "pedido_terminado",
+                "name" => "",
                 "language" => [
                     "code" => "es_AR"
                 ]
             ]
         ];
-        $respuesta = Http::withToken($token)->withOptions([
-            'verify' => resource_path('certificates/cacert.pem')
-        ])->post('https://graph.facebook.com/' . $version . '/' . $phoneId . '/messages', $payload)->json();
 
-        return response()->json($respuesta);
+        $info = ['token' => $token, 'phoneId' => $phoneId, 'version' => $version, 'payload' => $payload];
+
+        return $info;
     }
 
-    public function notificarCotizacion($idPedido){
-        $pedido = pedidoPersonalizado::find($idPedido);
-        $usuario = User::find($pedido->id_usuario);
-        $numero = '54' . $usuario->num_telefono;
+    public function enviarMensaje($idPedido, $estado)
+    {
+        if ($estado == 1) {
+            $template_name = 'cotizacion_recibida';
+        } else {
+            $template_name = "pedido_terminado";
+        }
 
-        $token = 'EAAbJ3wTRTZA8BOZC22mvkYnaFqXIXe9cjSXMWjDbloR9LhM1pQj6719eGmloq8aw3I1mI4b3hkkyiPyibOi6mWmjiBHZC95me4lWsLXvFGYeOrGHS9TtnE7ElnhhOMojXxtplvUJaQsgByfjsmGF8fFYZCq5FTrAMYNJFSD0R8hespRWxzpZAK5aDSWAx90jCmi1x7jZAAPGbwmSFy';
-        $phoneId = '151738844691434';
-        $version = 'v17.0';
-        $payload = [
-            "messaging_product" => "whatsapp",
-            "to" => $numero,
-            "type" => "template",
-            "template" => [
-                "name" => "cotizacion_recibida",
-                "language" => [
-                    "code" => "es_AR"
-                ]
-            ]
-        ];
-        $respuesta = Http::withToken($token)->withOptions([
+        $mensajeBase = $this->mensajeBase($idPedido);
+        $mensajeBase['payload']['template']['name'] = $template_name;
+
+        $respuesta = Http::withToken($mensajeBase['token'])->withOptions([
             'verify' => resource_path('certificates/cacert.pem')
-        ])->post('https://graph.facebook.com/' . $version . '/' . $phoneId . '/messages', $payload)->json();
-
+        ])->post('https://graph.facebook.com/' . $mensajeBase['version'] . '/' . $mensajeBase['phoneId'] . '/messages', $mensajeBase['payload'])->json();
         return response()->json($respuesta);
     }
 }
