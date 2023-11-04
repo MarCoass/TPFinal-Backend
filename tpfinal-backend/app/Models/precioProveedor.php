@@ -20,4 +20,6 @@ class precioProveedor extends Model
     {
         return $this->belongsTo(Insumo::class, 'id_insumo');
     }
+
+    
 }

@@ -13,6 +13,6 @@ class tip extends Model
     //funciones por la clave foranea
     public function Insumo()
     {
-        return $this->belongsTo(Insumo::class, 'id_insumo');
+        return $this->belongsTo(Insumo::class, 'id_insumo')->cascade('delete');
     }
 }

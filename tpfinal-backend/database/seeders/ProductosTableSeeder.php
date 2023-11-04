@@ -16,7 +16,7 @@ class ProductosTableSeeder extends Seeder
         producto::create([//1
             'nombre'=> 'Corazones lila baby square', 
             'descripcion' => 'Uñas lilas lisas y uñas claritas con corazones lilas, cortas', 
-            'id_ciudad'=> 1, 
+            'id_ciudad'=> 2, 
             'precio'=> 1600, 
             'estado'=> 1, 
             'url_imagen' => '/productos/corazones-lila-baby-square.png', 
@@ -25,7 +25,7 @@ class ProductosTableSeeder extends Seeder
         producto::create([//2
             'nombre'=> 'Lineas curvas verde agua almendra largas', 
             'descripcion' => 'Uñas verde agua con líneas curvas verde oscuro, almendra largas', 
-            'id_ciudad'=> 1, 
+            'id_ciudad'=> 2, 
             'precio'=> 1500, 
             'estado'=> 1, 
             'url_imagen' => '/productos/lineas-2-verdeagua-almendra-largas.png', 
@@ -34,7 +34,7 @@ class ProductosTableSeeder extends Seeder
         producto::create([//3
             'nombre'=> 'Negro baby square', 
             'descripcion' => 'Uñas negras lisas, cortas', 
-            'id_ciudad'=> 1, 
+            'id_ciudad'=> 3, 
             'precio'=> 1500, 
             'estado'=> 1, 
             'url_imagen' => '/productos/negro-baby-square.png', 
@@ -44,7 +44,7 @@ class ProductosTableSeeder extends Seeder
         producto::create([//4
             'nombre'=> 'Amarillo coffin largas', 
             'descripcion' => 'Uñas amarillas lisas, largas', 
-            'id_ciudad'=> 1, 
+            'id_ciudad'=> 3, 
             'precio'=> 1500, 
             'estado'=> 1, 
             'url_imagen' => '/productos/amarillo-coffin-largas.png', 
@@ -175,6 +175,50 @@ class ProductosTableSeeder extends Seeder
             'estado'=> 1, 
             'url_imagen' => '/productos/blanco-coffin-largas.png', 
             'stock'=> 4
+        ]);
+        producto::create([//19
+            'nombre'=> 'Pedido Personalizado', 
+            'descripcion' => 'Uñas redondas cortas con decoracion de halloween', 
+            'id_ciudad'=> 1, 
+            'estado'=> 0, 
+            'url_imagen' => '/productos/personalizada1.jpg', 
+            'stock'=> 0
+        ]);
+        producto::create([//20
+            'nombre'=> 'Pedido Personalizado', 
+            'descripcion' => 'Uñas cuadradas grises con un dibujo de Gojo en el dedo medio.', 
+            'id_ciudad'=> 1, 
+            'precio'=> 2000, 
+            'estado'=> 0, 
+            'url_imagen' => '/productos/personalizada2.jpg', 
+            'stock'=> 0
+        ]);
+        producto::create([//21
+            'nombre'=> 'Pedido Personalizado', 
+            'descripcion' => 'Uñas stilletto largas degradado de nude a rojo con los dibujos de Sukuna', 
+            'id_ciudad'=> 1, 
+            'precio'=> 2000, 
+            'estado'=> 0, 
+            'url_imagen' => '/productos/personalizada3.jpg', 
+            'stock'=> 0
+        ]);
+        producto::create([//22
+            'nombre'=> 'Pedido Personalizado', 
+            'descripcion' => 'Uñas almond degradado nude a verde manzana con dibujitos.', 
+            'id_ciudad'=> 1, 
+            'precio'=> 2000, 
+            'estado'=> 0, 
+            'url_imagen' => '/productos/personalizada4.jpg', 
+            'stock'=> 0
+        ]);
+        producto::create([//23
+            'nombre'=> 'Pedido Personalizado', 
+            'descripcion' => 'Uñas almond con french azul y calcifer simpaticon en el indice', 
+            'id_ciudad'=> 1, 
+            'precio'=> 2000, 
+            'estado'=> 0, 
+            'url_imagen' => '/productos/personalizada5.jpg', 
+            'stock'=> 0
         ]);
     }
 }

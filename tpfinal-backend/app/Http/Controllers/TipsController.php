@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\insumo;
+use App\Models\insumoProducto;
+use App\Models\Set;
 use App\Models\tip;
 use Illuminate\Http\Request;
 
@@ -41,14 +43,23 @@ class TipsController extends Controller
         return response()->json(['message' => 'Datos actualizados exitosamente'], 200);
     }
 
-    public function delete($id)
+    public function delete($id_insumo)
     {
-        $tip = tip::find($id);
-        $tip->delete();
-        return response()->json(['message' => 'Datos eliminados exitosamente'], 200);
+        $tip = tip::where('id_insumo', $id_insumo)->first();
+        $idTip = $tip->id;
+        //revisar si se utiliza en algun set
+        $insumoProducto = insumoProducto::where('id_insumo', $id_insumo)->exists();
+        $set = Set::where('id_tips', $idTip)->exists();
+        if ($insumoProducto || $set) {
+            return false;
+        } else {
+            $tip->delete();
+            return true;
+        }
     }
 
-    public function show($id){
+    public function show($id)
+    {
         $tip = tip::find($id);
         return response()->json($tip);
     }

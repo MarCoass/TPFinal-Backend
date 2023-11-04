@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('pedido_personalizados', function (Blueprint $table) {
             $table->id();
-            $table->json('id_productos');
-            $table->float('precio_total')->nullable();
+            $table->json('id_producto');
             $table->date('fecha_entrega')->nullable();
             $table->integer('estado');
             $table->unsignedBigInteger('id_usuario');
