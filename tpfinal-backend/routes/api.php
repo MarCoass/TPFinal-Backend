@@ -18,6 +18,17 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/send-test-email', function (Request $request) {
+    $to = 'test@example.com';
+    $subject = 'Test Email';
+    $message = 'This is a test email from Laravel!';
+
+    Mail::raw($message, function ($mail) use ($to, $subject) {
+        $mail->to($to)->subject($subject);
+    });
+
+    return 'Test email sent successfully!';
+});
 
 require __DIR__.'/auth.php';
 require __DIR__ . '/auth.php';

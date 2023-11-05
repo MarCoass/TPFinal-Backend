@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    //esta funcion puede ser de edicion de datos de perfil y validar username, nombre, apellido y telefono
     public function registro(Request $request)
     {
         //validar los datos del formulario
