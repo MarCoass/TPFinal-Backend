@@ -29,5 +29,15 @@ class UsersTableSeeder extends Seeder
             'password' => 'cliente',
             'id_rol' => 2
         ]);
+        User::create([
+            'username' => 'marcoass',
+            'nombre' => 'Martina',
+            'apellido' => 'Coassin',
+            'email' => 'martycoassin@gmail.com',
+            'password' => 'contraseña',
+            'id_rol' => 2,
+            'num_telefono' => 2994677550,
+            'observacion' => 'Cliente conflictiva'
+        ]);
     }
 }

@@ -28,5 +28,10 @@ class CategoriasSetSeeder extends Seeder
             'descripcion' => 'Diseño con muchos detalles',
             'precio_base' => '1800',
         ]);
+        CategoriaSet::create([//4
+            'nombre' => 'Personalizado',
+            'descripcion' => 'Pedidos personalizados',
+            'precio_base' => '0',
+        ]);
     }
 }

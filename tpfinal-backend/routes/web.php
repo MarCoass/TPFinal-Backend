@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Http\Request;
+
 use App\Http\Controllers\ProductosController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +22,4 @@ require __DIR__ . '/ciudades.php';
 require __DIR__ . '/sets.php';
 require __DIR__ . '/productos.php';
 require __DIR__ . '/carrito.php';
+require __DIR__ . '/whatsapp.php';
