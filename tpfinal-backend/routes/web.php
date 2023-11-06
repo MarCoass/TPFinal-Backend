@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\ProductosController;
+use App\Http\Controllers\SoapController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,3 +23,7 @@ require __DIR__ . '/ciudades.php';
 require __DIR__ . '/sets.php';
 require __DIR__ . '/productos.php';
 require __DIR__ . '/whatsapp.php';
+
+
+//para el tp de frameworks
+Route::get('pruebaSOAP/{tips}/{cantNecesaria}',[ SoapController::class, 'consume']);
