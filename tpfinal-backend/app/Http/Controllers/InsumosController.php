@@ -96,4 +96,6 @@ class InsumosController extends Controller
         $insumo->save();
         return response()->json(['exito' => true, 'message' => 'Stock modificado exitosamente', 200]);
     }
+
+   
 }

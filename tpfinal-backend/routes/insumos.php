@@ -28,6 +28,7 @@ Route::group(['middleware' => ['rol:1']], function () {
 
     Route::get('/administracion/tips', [TipsController::class, 'index']);
     Route::get('/administracion/tip/{id}', [TipsController::class, 'show']);
+    Route::get('/rendimientoTips',[ TipsController::class, 'rendimiento']);
 
     Route::get('/administracion/esmaltes', [EsmaltesController::class, 'index']);
     

@@ -63,4 +63,16 @@ class TipsController extends Controller
         $tip = tip::find($id);
         return response()->json($tip);
     }
+
+    public function rendimiento()
+    {
+        $tips = insumo::where('id_categoria', 3)->get();
+
+        $array = [];
+        foreach ($tips as $tip) {
+            $soap = new SoapController();
+            $array[] = ['nombre' => $tip->nombre, 'stock' => $tip->stock, 'setsPersonalizados' => $soap->consume($tip->stock, 10), 'setsUniversales' => $soap->consume($tip->stock, 24)];
+        }
+        return response()->json($array);
+    }
 }
