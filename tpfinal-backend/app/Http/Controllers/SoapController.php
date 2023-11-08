@@ -39,8 +39,7 @@ class SoapController extends Controller
 
     // Obtener el valor de DivideResult
     $divideResult = $xpath->query('//ns:DivideResult')->item(0)->textContent;
-
-    // Ahora $divideResult contiene el valor de DivideResult
+    
     return $divideResult;
   }
 }
