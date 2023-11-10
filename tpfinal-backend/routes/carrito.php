@@ -7,6 +7,7 @@ Route::group(['middleware' => ['rol:2']], function () {
     Route::get('/carrito', [CarritoController::class, 'verCarritoActual']);
     Route::post('/agregar-producto', [CarritoController::class, 'agregarProducto']);
     Route::post('/eliminar-producto', [CarritoController::class, 'eliminarProducto']);
+    Route::post('/actualizar-carrito', [CarritoController::class, 'actualizarCarrito']);
     Route::get('/comprar', [CarritoController::class, 'comprarCarrito']);
 });
 

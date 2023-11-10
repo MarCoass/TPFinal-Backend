@@ -38,6 +38,8 @@ class CarritoController extends Controller
         return response()->json($carrito);
     }
 
+    // Función para recuperar los productos del carrito
+
     public function obtenerProductosCarrito($arrayProductos){
        
         $productosController = new ProductosController();
@@ -52,34 +54,6 @@ class CarritoController extends Controller
         return $productos;
     }
 
-
-
-
-// Función para recuperar los productos del carrito
-public function productosEnCarritoActual($carritoId)
-{
-    $carrito = DB::table('carritos')
-        ->where('id', $carritoId)
-        ->first();
-
-        if ($carrito) {
-            $id_productos = json_decode($carrito->id_productos);
-        
-            if ($id_productos) {
-                // Aquí seleccionas los productos en el carrito
-                $productosEnCarrito = DB::table('productos')
-                    ->whereIn('id', array_column($id_productos, 'id_producto'))
-                    ->get();
-        
-                // Devuelves la respuesta JSON
-                return response()->json($productosEnCarrito);
-            }
-        }
-        
-        // Si no hay carrito o no contiene productos, puedes devolver una respuesta vacía
-        return response()->json([]);
-        
-}
 
     //Obtiene todos los carritos del usuario 
     public function verCarritosUsuario($id_usuario)
@@ -110,6 +84,14 @@ public function productosEnCarritoActual($carritoId)
         $carrito = carrito::find($id);
         $carrito->delete();
         return  response()->json(['message' => 'Carrito eliminado.'], 200);
+    }
+
+    public function actualizarCarrito(Request $requests)
+    {
+        $carrito = carrito::where('id_usuario', $user->id)->where('estado', 0)->first();
+        $nuevosProductos = json_encode($request->id_productos);
+        $carrito->id_productos = $nuevosProductos;
+        $carrito->save();
     }
 
     //agrega un nuevo producto al carrito actual, si no existe se crea un carrito
