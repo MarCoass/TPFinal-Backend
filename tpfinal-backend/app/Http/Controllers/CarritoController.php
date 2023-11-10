@@ -55,6 +55,8 @@ class CarritoController extends Controller
     }
 
 
+
+
     //Obtiene todos los carritos del usuario 
     public function verCarritosUsuario($id_usuario)
     {
@@ -86,11 +88,13 @@ class CarritoController extends Controller
         return  response()->json(['message' => 'Carrito eliminado.'], 200);
     }
 
-    public function actualizarCarrito(Request $requests)
+    public function actualizarCarrito(Request $request)
     {
+        $user = auth()->user();
+        // return response()->json(['data_received' => $request->all()]);
+        error_log('Datos recibidos: ' . json_encode($request->all())); // Esto registra los datos recibidos en el registro de errores
         $carrito = carrito::where('id_usuario', $user->id)->where('estado', 0)->first();
-        $nuevosProductos = json_encode($request->id_productos);
-        $carrito->id_productos = $nuevosProductos;
+        $carrito->id_productos = $request->id_productos;
         $carrito->save();
     }
 
