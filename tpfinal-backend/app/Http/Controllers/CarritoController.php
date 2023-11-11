@@ -110,12 +110,12 @@ class CarritoController extends Controller
             $carrito = new carrito();
             $carrito->estado = 0;
             $carrito->id_usuario = auth()->user()->id;
-            $carrito->id_productos = json_encode([]);
+            $carrito->id_productos = [];
             $carrito->save();
         }
 
         // Obtiene los productos guardados
-        $productos = json_decode($carrito->id_productos, true);
+        $productos = $carrito->id_productos;
 
         //busca si ya existe el producto
         $indiceProducto = null;
@@ -139,7 +139,7 @@ class CarritoController extends Controller
             $productos[] = $nuevoProducto;
         }
         // Pasa el array a JSON y guarda el nuevo valor
-        $nuevosProductos = json_encode($productos);
+        $nuevosProductos = $productos;
         $carrito->id_productos = $nuevosProductos;
         $carrito->save();
 
@@ -150,10 +150,10 @@ class CarritoController extends Controller
     {
         //busca el carrito actual
         $user = auth()->user();
-        $carrito = carrito::where('id_usuario', $user->id)->where('estado', 0)->get();
+        $carrito = carrito::where('id_usuario', $user->id)->where('estado', 0)->get()->first();
 
         //obtiene los productos guardados
-        $productos = json_decode($carrito->id_productos);
+        $productos = $carrito->id_productos;
 
         //busca la posicion del producto en el carrito
         // Busca el producto en el arreglo por su id_producto
@@ -170,10 +170,10 @@ class CarritoController extends Controller
         }
 
         //pasa el array a json
-        $nuevosProductos = json_encode($productos);
+        // $nuevosProductos = json_encode($productos);
 
         //actualiza el array
-        $carrito->id_productos = $nuevosProductos;
+        $carrito->id_productos = $productos;
         $carrito->save();
 
         return  response()->json(['message' => 'Producto eliminado del carrito.'], 200);
