@@ -9,6 +9,7 @@ Route::group(['middleware' => ['rol:2']], function () {
     Route::post('/eliminar-producto', [CarritoController::class, 'eliminarProducto']);
     Route::post('/actualizar-carrito', [CarritoController::class, 'actualizarCarrito']);
     Route::get('/comprar', [CarritoController::class, 'comprarCarrito']);
+    Route::get('/verificar-stock/{productos}', [CarritoController::class, 'comprobarStockProductos']);
 });
 
 Route::get('/ver-carritos/{id_usuario}', [CarritoController::class, 'verCarritosUsuario']);
