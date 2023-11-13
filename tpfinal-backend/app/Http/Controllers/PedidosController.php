@@ -24,6 +24,22 @@ class PedidosController extends Controller
     }
 
     //store
+    public function store(Request $request)
+    {
+
+        $pedido = new pedidoPersonalizado();
+        $set = new SetController();
+        $setResponse = $set->store($request);
+
+        //obtengo el ID desde el response
+        $data = json_decode($setResponse->getContent());
+        $id_producto = $data->id_producto;
+        $pedido->id_producto = $id_producto;
+        $pedido->id_usuario = $request->input('id_user');
+
+        $pedido->save();
+        return response()->json(['message' => 'Datos guardados exitosamente'], 200);
+    }
 
     //update
 
@@ -53,8 +69,8 @@ class PedidosController extends Controller
         $pedido->save();
         if ($request->input('estado') == 1 || $request->input('estado') == 5) {
             $mensaje = new WhatsappController();
-            $respuestaMensaje = $mensaje->enviarMensaje($id, $request->input('estado'));
-            /*    $respuestaMensaje = 'No mando el mensaje para no sumar mas dolares'; */
+            /*   $respuestaMensaje = $mensaje->enviarMensaje($id, $request->input('estado')); */
+            $respuestaMensaje = 'No mando el mensaje para no sumar mas dolares';
         }
         return response()->json(['exito' => true, 'message' => 'Estado actualizado correctamente.']);
     }

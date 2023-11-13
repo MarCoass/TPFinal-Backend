@@ -54,12 +54,13 @@ class ProductosController extends Controller
         // Decodificar la cadena JSON en un array asociativo
         $cantidadesInsumos = json_decode($request->input('cantidadesInsumos'), true);
 
-        $insumoProducto = new InsumoProductoController();
-
         // Iterar sobre el array de cantidadesInsumos
-        foreach ($cantidadesInsumos as $id_insumo => $cantidad) {
-            // Llamar a la función store para cada par id_insumo y cantidad
-            $insumoProducto->store($id_producto, $id_insumo, $cantidad);
+        if ($cantidadesInsumos != null) {
+            $insumoProducto = new InsumoProductoController();
+            foreach ($cantidadesInsumos as $id_insumo => $cantidad) {
+                // Llamar a la función store para cada par id_insumo y cantidad
+                $insumoProducto->store($id_producto, $id_insumo, $cantidad);
+            }
         }
 
         return response()->json(['id' => $producto->id], 200);
