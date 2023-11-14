@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->json('id_producto');
             $table->date('fecha_entrega')->nullable();
-            $table->integer('estado');
+            $table->integer('estado')->default(0);
             $table->unsignedBigInteger('id_usuario');
             $table->timestamps();
 

@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('carritos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_usuario');
-            $table->json('id_productos');
-            $table->json('estado');
-            $table->float('precio_total');
+            $table->json('id_productos')->nullable();
+            $table->integer('estado');
+            $table->float('id_ciudad')->nullable();
             $table->timestamps();
 
             $table->foreign('id_usuario')->references('id')->on('users');

@@ -11,6 +11,7 @@ Route::group(['middleware' => ['rol:1']], function () {
     Route::post('/administracion/productoUpdate/{id}', [ProductosController::class, 'update']);
     Route::get('/insumosUsados/{id}', [InsumoProductoController::class, 'buscarPorProducto']);
     Route::post('/administracion/actualizarStockProducto/{id}',[ProductosController::class, 'actualizarStock']);
+    Route::post('/administracion/agregarInsumos/{id}',[ProductosController::class, 'agregarInsumos']);
 });
 
 Route::get('/administracion/producto/{id}', [ProductosController::class, 'show']);

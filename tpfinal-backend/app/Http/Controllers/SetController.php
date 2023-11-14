@@ -8,6 +8,8 @@ use App\Models\Set;
 use App\Models\tip;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ProductosController;
+use App\Models\pedidoPersonalizado;
+use App\Models\User;
 
 class SetController extends Controller
 {
@@ -19,7 +21,7 @@ class SetController extends Controller
     }
 
     public function store(Request $request)
-    {
+    { 
         //crear el producto
         $productoController = new ProductosController();
         $productoResponse = $productoController->store($request);
@@ -34,15 +36,32 @@ class SetController extends Controller
         $producto = producto::find($id_producto);
         $set->Producto()->associate($producto);
 
-        $categoria = CategoriaSet::find($request->input('id_categoria'));
-        $set->CategoriaSet()->associate($categoria);
+        if ($request->input('id_categoria') != null) {
+            $categoria = CategoriaSet::find($request->input('id_categoria'));
+            $set->CategoriaSet()->associate($categoria);
+        } else {
+            $categoria = CategoriaSet::find(4);
+            $set->CategoriaSet()->associate($categoria);
+        }
+
+        if ($request->input('id_user') != null) {
+            //cambio el nombre del producto
+            $pedidos = pedidoPersonalizado::with('producto')->where('id_usuario', $request->input('id_user'))->count();
+            $user = User::find($request->input('id_user'));
+            $producto->nombre = 'Pedido personalizado ' . $user->nombre . ' #' . $pedidos+1;
+            $producto->save();
+        }
 
 
         $tips = tip::find($request->input('id_tip'));
         $set->Tip()->associate($tips);
 
         $set->save();
-        return response()->json(['message' => 'Datos guardados exitosamente'], 200);
+        if ($request->input('id_categoria') != null) {
+            return response()->json(['message' => 'Datos guardados exitosamente'], 200);
+        } else {
+            return response()->json(['id_producto' => $producto->id]);
+        }
     }
 
     public function update(Request $request, $id)
@@ -81,18 +100,19 @@ class SetController extends Controller
     {
         $set = Set::find($id);
         $id_producto = $set->producto->id; // Accede al producto y obtén su ID.
-    
+
         $set->delete();
         $productoController = new ProductosController();
         $productoResponse = $productoController->delete($id_producto);
         return response()->json(['message' => 'Set eliminado correctamente'], 200);
     }
-    
 
-    public function esSet($id){
-        
+
+    public function esSet($id)
+    {
+
         $set = Set::find($id);
-        $esSet = $set? true : false;
+        $esSet = $set ? true : false;
         return response()->json(['esSet' => $esSet]);
     }
 }

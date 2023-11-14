@@ -29,5 +29,7 @@ class DatabaseSeeder extends Seeder
         $this->call(precioProveedorTableSeeder::class);
         $this->call(PedidosTableSeeder::class);
         $this->call(ParametrosTableSeeder::class);
+        $this->call(CarritosSeeder::class);
+
     }
 }

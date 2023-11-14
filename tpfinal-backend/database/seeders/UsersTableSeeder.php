@@ -19,6 +19,7 @@ class UsersTableSeeder extends Seeder
             'apellido' => 'Apellido admin',
             'email' => 'admin@correo.com',
             'password' => 'admin',
+            'sets_favoritos'=>[],
             'id_rol' => 1
         ]);
         User::create([
@@ -27,6 +28,12 @@ class UsersTableSeeder extends Seeder
             'apellido' => 'Apellido cliente',
             'email' => 'cliente@correo.com',
             'password' => 'cliente',
+            'sets_favoritos'=>
+            [
+                ['id_producto'=>1],
+                ['id_producto'=>4], 
+                ['id_producto'=>7]
+            ],
             'id_rol' => 2
         ]);
         User::create([
@@ -36,6 +43,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'martycoassin@gmail.com',
             'password' => 'contraseña',
             'id_rol' => 2,
+            'sets_favoritos'=>[],
             'num_telefono' => 2994677550,
             'observacion' => 'Cliente conflictiva'
         ]);

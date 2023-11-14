@@ -19,8 +19,11 @@ class ProductosController extends Controller
     {
         /* $productos = producto::with('set', 'set.categoriaSet', 'set.tip', 'ciudad', 'insumos')->get(); */
         $productos = Producto::with('set', 'set.categoriaSet', 'set.tip', 'ciudad', 'insumos')
-            ->whereHas('set', function ($query) {
-                $query->where('id_categoria', '!=', 4);
+            ->where(function ($query) {
+                $query->whereHas('set', function ($subquery) {
+                    $subquery->where('id_categoria', '!=', 4);
+                })
+                    ->orWhereDoesntHave('set');
             })
             ->get();
         return response()->json($productos);
@@ -28,14 +31,12 @@ class ProductosController extends Controller
 
     public function store(Request $request)
     {
-
         $producto = new producto();
         $producto->nombre = $request->input('nombre');
         $producto->descripcion = $request->input('descripcion');
         $producto->precio = $request->input('precio');
         $producto->stock = $request->input('stock');
         $producto->estado = $request->input('estado');
-
 
         if ($request->hasFile('imagen')) {
             $extension = $request->file('imagen')->getClientOriginalExtension(); //obtengo el tipo de extensión
@@ -55,17 +56,17 @@ class ProductosController extends Controller
         // Decodificar la cadena JSON en un array asociativo
         $cantidadesInsumos = json_decode($request->input('cantidadesInsumos'), true);
 
-        $insumoProducto = new InsumoProductoController();
-
         // Iterar sobre el array de cantidadesInsumos
-        foreach ($cantidadesInsumos as $id_insumo => $cantidad) {
-            // Llamar a la función store para cada par id_insumo y cantidad
-            $insumoProducto->store($id_producto, $id_insumo, $cantidad);
+        if ($cantidadesInsumos != null) {
+            $insumoProducto = new InsumoProductoController();
+            foreach ($cantidadesInsumos as $id_insumo => $cantidad) {
+                // Llamar a la función store para cada par id_insumo y cantidad
+                $insumoProducto->store($id_producto, $id_insumo, $cantidad);
+            }
         }
 
         return response()->json(['id' => $producto->id], 200);
     }
-
 
     public function update(Request $request, $id)
     {
@@ -99,16 +100,54 @@ class ProductosController extends Controller
             $producto->Ciudad()->associate($ciudad);
         }
 
+        // Decodificar la cadena JSON en un array asociativo
+        $cantidadesInsumos = json_decode($request->input('cantidadesInsumos'), true);
+
+        // Iterar sobre el array de cantidadesInsumos
+        if ($cantidadesInsumos != null) {
+            foreach ($cantidadesInsumos as $id_insumo => $cantidad) {
+                $insumoModelo = insumoProducto::where('id_insumo', $id_insumo)
+                    ->where('id_producto', $id)
+                    ->first();
+
+                if ($insumoModelo) {
+                    $insumoModelo->cantidad = $cantidad;
+                    $insumoModelo->save();
+                }
+            }
+        }
+
+
         $producto->save();
 
         return response()->json(['message' => 'Producto actualizado exitosamente'], 200);
     }
 
+<<<<<<< Updated upstream
+=======
+    public function agregarInsumos(Request $request, $id)
+    {
+        $producto = producto::find($id);
 
+        // Decodificar la cadena JSON en un array asociativo
+        $cantidadesInsumos = json_decode($request->input('cantidadesInsumos'), true);
+        // Iterar sobre el array de cantidadesInsumos
+        if ($cantidadesInsumos != null) {
+            $insumoProducto = new InsumoProductoController();
+            foreach ($cantidadesInsumos as $id_insumo => $cantidad) {
+                // Llamar a la función store para cada par id_insumo y cantidad
+                $insumoProducto->store($id, $id_insumo, $cantidad);
+            }
+        }
+        $producto->save();
+
+        return response()->json(['message' => 'Producto actualizado exitosamente'], 200);
+    }
+
+>>>>>>> Stashed changes
     public function show($id)
     {
         $producto = producto::with(['set', 'set.categoriaSet', 'set.tip', 'ciudad', 'insumos'])->find($id);
-        // $productoInfo = $producto->with('set', 'set.categoriaSet', 'set.tip', 'ciudad')->get();
         return response()->json($producto);
     }
 
@@ -184,5 +223,12 @@ class ProductosController extends Controller
             }
         }
         return $faltantes;
+    }
+
+    //esta funcion obtiene por parámtero el array de productos del carrito y resta el stock correspondiente al realizar una compra
+    public function restarStockCompra($productoComprado){
+        $producto = producto::find($productoComprado['id_producto']);
+        $producto->stock = $productoComprado['cantidad'];
+        $producto->save();
     }
 }

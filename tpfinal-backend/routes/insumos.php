@@ -36,3 +36,6 @@ Route::group(['middleware' => ['rol:1']], function () {
     Route::delete('/precioDelete/{id}', [PrecioProveedoresController::class, 'delete']);
     Route::get('/precio/{id}', [PrecioProveedoresController::class, 'show']);
 });
+
+
+Route::get('/administracion/tips', [TipsController::class, 'index']);
