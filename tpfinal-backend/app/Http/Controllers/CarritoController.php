@@ -144,13 +144,15 @@ class CarritoController extends Controller
     public function comprarCarrito()
     {
         $user = auth()->user();
-        //trae el ultimo carrito carrito con estado '0' 
-        $carrito = carrito::where('id_usuario', $user->id)->where('estado', 0)->get();
+        //trae el ultimo carrito carrito con estado '0'
+        $carrito = carrito::where('id_usuario', $user->id)->where('estado', 0)->get()->first();
+        // return  response()->json(['data' => $carrito], 200);
         $array = $carrito->id_productos;
+
         //por cada producto le descuenta la cantidad
-        $producto = new producto();
+        $productosController = new ProductosController();
         foreach ($array as $tupla) {
-            $producto->eliminarProducto($tupla['id_producto'], $tupla['cantidad']);
+            $productosController->restarStockCompra($tupla);
         }
         $carrito->estado = 1;
         return  response()->json(['message' => 'Compra realizada correctamente.'], 200);
@@ -168,7 +170,7 @@ class CarritoController extends Controller
                 return response()->json(['data' => $productoEnDB, 'stock'=>false]);// Si no hay suficiente stock, retorna falso 
             }
         }
-        return response()->json(['data' => '', 'stock'=>true]);;
+        return response()->json(['data' => '', 'stock'=>true]);
 
     }
 
