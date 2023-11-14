@@ -18,11 +18,16 @@ class CarritoController extends Controller
     
         // Trae el último carrito con estado '0' del usuario
         $carrito = carrito::where('id_usuario', $user->id)->where('estado', 0)->first();
-    
         if ($carrito) {
             // Obten productos en el carrito actual
             $productosEnCarrito = $this->obtenerProductosCarrito($carrito->id_productos);
             $carrito->productos = $productosEnCarrito;
+        } else {
+            $carrito = new carrito();
+            $carrito->estado = 0;
+            $carrito->id_usuario = auth()->user()->id;
+            $carrito->id_productos = [];
+            $carrito->save();
         }
     
         return response()->json($carrito);
@@ -155,6 +160,7 @@ class CarritoController extends Controller
             $productosController->restarStockCompra($tupla);
         }
         $carrito->estado = 1;
+        $carrito->save();
         return  response()->json(['message' => 'Compra realizada correctamente.'], 200);
     }
 
