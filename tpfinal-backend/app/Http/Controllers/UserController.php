@@ -56,33 +56,41 @@ class UserController extends Controller
         $user = auth()->user();
          // Obtiene los productos guardados
          $productos = $user->sets_favoritos;
- 
-         //busca si ya existe el producto
-         $indiceProducto = null;
-  
-         for ($i = 0; $i < sizeOf($productos); $i++)
-         {
-             if ($productos[$i]['id_producto'] == $request->input('id_producto')) {
-                 $indiceProducto = $i;
-                 break;
-             }
-         }
-         // Si encontró un producto existente, aumenta la cantidad
-         if ($indiceProducto !== null) {
-            return response()->json(['message' => 'Este producto ya está en tu lista de favoritos.', 'repetido' => true], 200);
+         if($productos != null){
+            //busca si ya existe el producto
+            $indiceProducto = null;
+    
+            for ($i = 0; $i < sizeOf($productos); $i++)
+            {
+                if ($productos[$i]['id_producto'] == $request->input('id_producto')) {
+                    $indiceProducto = $i;
+                    break;
+                }
+            }
+            // Si encontró un producto existente, aumenta la cantidad
+            if ($indiceProducto !== null) {
+                return response()->json(['message' => 'Este producto ya está en tu lista de favoritos.', 'repetido' => true], 200);
+            } else {
+                // Si no existe, crea un nuevo producto
+                $nuevoProducto = [
+                    'id_producto' => $request->input('id_producto'),
+                ];
+                $productos[] = $nuevoProducto;
+            }
+
          } else {
-             // Si no existe, crea un nuevo producto
-             $nuevoProducto = [
+            $nuevoProducto = [
                 'id_producto' => $request->input('id_producto'),
-             ];
-             $productos[] = $nuevoProducto;
+            ];
+            $productos[] = $nuevoProducto;
          }
-         // Pasa el array a JSON y guarda el nuevo valor
-         $nuevosProductos = $productos;
-         $user->sets_favoritos = $nuevosProductos;
-         $user->save();
+        // Pasa el array a JSON y guarda el nuevo valor
+        $nuevosProductos = $productos;
+        $user->sets_favoritos = $nuevosProductos;
+
+        $user->save();
   
-         return response()->json(['message' => 'Producto agregado a favoritos.', 'repetido'=> false], 200);
+        return response()->json(['message' => 'Producto agregado a favoritos.', 'repetido'=> false], 200);
     }
 
     public function eliminarDeFavoritos(Request $request){

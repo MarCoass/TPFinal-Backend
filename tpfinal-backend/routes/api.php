@@ -31,7 +31,7 @@ Route::get('/send-test-email', function (Request $request) {
 });
 
 require __DIR__.'/auth.php';
-require __DIR__ . '/auth.php';
+// require __DIR__ . '/auth.php';
 require __DIR__ . '/insumos.php';
 require __DIR__ . '/ciudades.php';
 require __DIR__ . '/sets.php';
