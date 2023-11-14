@@ -69,7 +69,7 @@ class UserController extends Controller
          }
          // Si encontró un producto existente, aumenta la cantidad
          if ($indiceProducto !== null) {
-            return response()->json(['message' => 'Este producto ya está en tu lista de favoritos.'], 200);
+            return response()->json(['message' => 'Este producto ya está en tu lista de favoritos.', 'repetido' => true], 200);
          } else {
              // Si no existe, crea un nuevo producto
              $nuevoProducto = [
@@ -82,10 +82,10 @@ class UserController extends Controller
          $user->sets_favoritos = $nuevosProductos;
          $user->save();
   
-         return response()->json(['message' => 'Producto agregado a favoritos.'], 200);
+         return response()->json(['message' => 'Producto agregado a favoritos.', 'repetido'=> false], 200);
     }
 
-    public function eliminarDeFavoritos($idProducto){
+    public function eliminarDeFavoritos(Request $request){
        //busca el carrito actual
        $user = auth()->user();
 
