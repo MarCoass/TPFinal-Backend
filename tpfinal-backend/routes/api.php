@@ -41,5 +41,7 @@ require __DIR__ . '/proveedores.php';
 require __DIR__ . '/categorias.php';
 require __DIR__ . '/pedidos.php';
 require __DIR__ . '/cliente.php';
+require __DIR__ . '/parametros.php';
 require __DIR__ . '/carrito.php';
 require __DIR__ . '/favoritos.php';
+
