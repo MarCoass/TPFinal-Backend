@@ -25,7 +25,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'num_telefono',
         'id_rol',
-        'setsFavoritos'
+        'sets_favoritos'
     ];
 
     /**
@@ -46,6 +46,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'sets_favoritos' => 'array', 
     ];
 
     /**funciones por la clave foranea*/
