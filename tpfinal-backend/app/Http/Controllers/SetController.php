@@ -21,7 +21,7 @@ class SetController extends Controller
     }
 
     public function store(Request $request)
-    {
+    { 
         //crear el producto
         $productoController = new ProductosController();
         $productoResponse = $productoController->store($request);
