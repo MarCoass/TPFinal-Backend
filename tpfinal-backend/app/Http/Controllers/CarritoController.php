@@ -169,20 +169,40 @@ class CarritoController extends Controller
             $user = auth()->user();
             $carrito = carrito::where('id_usuario', $user->id)->where('estado', 0)->first();
             $productosArray = $carrito->id_productos;
+            $stockInsuficiente = false;
+            $productosInsuficientes = [];
+            // $productosArray = json_decode($productos, true);
+            foreach ($productosArray as $producto){
+                $productoEnDB = Producto::where('id', $producto['id_producto'])->get()->first();
+                if ($productoEnDB->stock < $producto['cantidad']) {  
+                    $stockInsuficiente = true;
+                    array_push($productosInsuficientes, $productoEnDB);
+                }
+            }
         } else {
             $productosArray = json_decode($productos);
-        }
-        // return response()->json(['data' => $productosArray, 'stock'=>false]);
-        $stockInsuficiente = false;
-        $productosInsuficientes = [];
-        // $productosArray = json_decode($productos, true);
-        foreach ($productosArray as $producto){
-            $productoEnDB = Producto::where('id', $producto->id_producto)->get()->first();
-            if ($productoEnDB->stock < $producto->cantidad) {  
-                $stockInsuficiente = true;
-                array_push($productosInsuficientes, $productoEnDB);
+            $stockInsuficiente = false;
+            $productosInsuficientes = [];
+            // $productosArray = json_decode($productos, true);
+            foreach ($productosArray as $producto){
+                $productoEnDB = Producto::where('id', $producto->id_producto)->get()->first();
+                if ($productoEnDB->stock < $producto->cantidad) {  
+                    $stockInsuficiente = true;
+                    array_push($productosInsuficientes, $productoEnDB);
+                }
             }
         }
+        // return response()->json(['data' => $productosArray, 'stock'=>false]);
+        // $stockInsuficiente = false;
+        // $productosInsuficientes = [];
+        // // $productosArray = json_decode($productos, true);
+        // foreach ($productosArray as $producto){
+        //     $productoEnDB = Producto::where('id', $producto->id_producto)->get()->first();
+        //     if ($productoEnDB->stock < $producto->cantidad) {  
+        //         $stockInsuficiente = true;
+        //         array_push($productosInsuficientes, $productoEnDB);
+        //     }
+        // }
         if($stockInsuficiente){
             // $productosInsuficientes = json_encode($productosInsuficientes);
             return response()->json(['data' => $productosInsuficientes, 'stock'=>false]);// Si no hay suficiente stock, retorna falso 
