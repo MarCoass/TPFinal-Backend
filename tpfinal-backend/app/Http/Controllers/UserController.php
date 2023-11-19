@@ -111,16 +111,16 @@ class UserController extends Controller
        }
        if ($indiceProducto !== null) {
            // Si se encuentra el producto, lo elimina del arreglo
-           array_splice($productos, $indiceProducto, 1);
+           
        }
-
-       //pasa el array a json
-       // $nuevosProductos = json_encode($productos);
-
-       //actualiza el array
-       $user->sets_favoritos = $productos;
+       if ($indiceProducto !== null) {
+        // Si se encuentra el producto, lo elimina del arreglo
+        array_splice($productos, $indiceProducto, 1);
+        $user->sets_favoritos = $productos;
        $user->save();
-
-       return  response()->json(['message' => 'Producto eliminado del carrito.'], 200);
+        return  response()->json(['message' => 'Producto eliminado de favoritos'], 200);
+    } else {
+        return  response()->json(['message' => 'No se encontro el producto.']);
+    }
     }
 }

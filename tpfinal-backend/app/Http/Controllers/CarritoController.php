@@ -129,14 +129,7 @@ class CarritoController extends Controller
         } else {
             return  response()->json(['message' => 'No se encontro el producto.']);
         }
- 
-        //pasa el array a json
-        // $nuevosProductos = json_encode($productos);
- 
-        //actualiza el array
-
-
-        
+    
      }
  
 
