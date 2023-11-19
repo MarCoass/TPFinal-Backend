@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\pedidoPersonalizado;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -22,5 +23,10 @@ class ClienteController extends Controller
         $cliente->observacion = $request->input('observacion');
         $cliente->save();
         return response()->json(['exito' => true, 'message' => 'Comentario modificado exitosamente', 200]);
+    }
+
+    public function pedidos($id){
+        $pedidos = pedidoPersonalizado::with('producto', 'usuario')->where('id_usuario', $id)->get();
+        return response()->json($pedidos);
     }
 }

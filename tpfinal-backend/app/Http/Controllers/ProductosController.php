@@ -123,8 +123,6 @@ class ProductosController extends Controller
         return response()->json(['message' => 'Producto actualizado exitosamente'], 200);
     }
 
-<<<<<<< Updated upstream
-=======
     public function agregarInsumos(Request $request, $id)
     {
         $producto = producto::find($id);
@@ -144,7 +142,6 @@ class ProductosController extends Controller
         return response()->json(['message' => 'Producto actualizado exitosamente'], 200);
     }
 
->>>>>>> Stashed changes
     public function show($id)
     {
         $producto = producto::with(['set', 'set.categoriaSet', 'set.tip', 'ciudad', 'insumos'])->find($id);
