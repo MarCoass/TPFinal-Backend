@@ -103,6 +103,7 @@ class CarritoController extends Controller
     
      public function eliminarProducto(Request $request)
      {
+        // return  response()->json(['data' => $request->id_producto]);
         //busca el carrito actual
         $user = auth()->user();
         $carrito = carrito::where('id_usuario', $user->id)->where('estado', 0)->get()->first();
@@ -122,16 +123,20 @@ class CarritoController extends Controller
         if ($indiceProducto !== null) {
             // Si se encuentra el producto, lo elimina del arreglo
             array_splice($productos, $indiceProducto, 1);
+            $carrito->id_productos = $productos;
+            $carrito->save();
+            return  response()->json(['message' => 'Producto eliminado del carrito.'], 200);
+        } else {
+            return  response()->json(['message' => 'No se encontro el producto.']);
         }
  
         //pasa el array a json
         // $nuevosProductos = json_encode($productos);
  
         //actualiza el array
-        $carrito->id_productos = $productos;
-        $carrito->save();
 
-        return  response()->json(['message' => 'Producto eliminado del carrito.'], 200);
+
+        
      }
  
 
