@@ -170,13 +170,14 @@ class CarritoController extends Controller
             $carrito = carrito::where('id_usuario', $user->id)->where('estado', 0)->first();
             $productosArray = $carrito->id_productos;
         } else {
-            $productosArray = [json_decode($productos)];
+            $producto = json_decode($productos);
+            $productosArray = [['id_producto'=>$producto->id_producto, 'cantidad'=>$producto->cantidad]];
         }
         $stockInsuficiente = false;
         $productosInsuficientes = [];
         foreach ($productosArray as $producto){
-            $productoEnDB = Producto::where('id', $producto->id_producto)->get()->first();
-            if ($productoEnDB->stock < $producto->cantidad) {  
+            $productoEnDB = Producto::where('id', $producto['id_producto'])->get()->first();
+            if ($productoEnDB->stock < $producto['cantidad']) {  
                 $stockInsuficiente = true;
                 array_push($productosInsuficientes, $productoEnDB);
             }
