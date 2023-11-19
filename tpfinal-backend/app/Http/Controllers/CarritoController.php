@@ -157,7 +157,7 @@ class CarritoController extends Controller
         //por cada producto le descuenta la cantidad
         $productosController = new ProductosController();
         foreach ($array as $tupla) {
-            $productosController->restarStockCompra($tupla);
+           $productosController->restarStockCompra($tupla);
         }
         $carrito->estado = 1;
         $carrito->save();
@@ -165,15 +165,20 @@ class CarritoController extends Controller
     }
 
     public function comprobarStockProductos($productos){
-        // $user = auth()->user();
-        // $carrito = carrito::where('id_usuario', $user->id)->where('estado', 0)->first();
-        // $arrayProductos = json_decode($producto);
+        if($productos === "carrito"){
+            $user = auth()->user();
+            $carrito = carrito::where('id_usuario', $user->id)->where('estado', 0)->first();
+            $productosArray = $carrito->id_productos;
+        } else {
+            $productosArray = json_decode($productos);
+        }
+        // return response()->json(['data' => $arrayProductos, 'stock'=>false]);
         $stockInsuficiente = false;
         $productosInsuficientes = [];
-        $productosArray = json_decode($productos, true);
+        // $productosArray = json_decode($productos, true);
         foreach ($productosArray as $producto){
             $productoEnDB = Producto::where('id', $producto['id_producto'])->get()->first();
-            if ($productoEnDB->stock < $producto['cantidad']) {
+            if ($productoEnDB->stock < $producto['cantidad']) {  
                 $stockInsuficiente = true;
                 array_push($productosInsuficientes, $productoEnDB);
             }

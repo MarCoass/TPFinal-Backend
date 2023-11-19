@@ -224,8 +224,9 @@ class ProductosController extends Controller
 
     //esta funcion obtiene por parámtero el array de productos del carrito y resta el stock correspondiente al realizar una compra
     public function restarStockCompra($productoComprado){
+        // dd('entra a restar Stock');
         $producto = producto::find($productoComprado['id_producto']);
-        $producto->stock = $productoComprado['cantidad'];
+        $producto->stock = $producto->stock - $productoComprado['cantidad'];
         $producto->save();
     }
 }
