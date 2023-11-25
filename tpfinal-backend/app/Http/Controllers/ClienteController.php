@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class ClienteController extends Controller
 {
     public function index(){
-        $clientes = User::where('id_rol', 2)->get();
+        $clientes = User::where('id_rol', 2) ->orderBy('nombre')->get();
         return response()->json($clientes);
     }
 
@@ -26,7 +26,8 @@ class ClienteController extends Controller
     }
 
     public function pedidos($id){
-        $pedidos = pedidoPersonalizado::with('producto', 'usuario')->where('id_usuario', $id)->get();
+        $pedidos = pedidoPersonalizado::with('producto', 'usuario')->where('id_usuario', $id)->orderBy('estado')->get();
         return response()->json($pedidos);
     }
+
 }

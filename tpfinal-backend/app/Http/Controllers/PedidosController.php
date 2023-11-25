@@ -6,6 +6,7 @@ use App\Models\pedidoPersonalizado;
 use App\Models\producto;
 use Illuminate\Http\Request;
 use Mockery\Undefined;
+use Illuminate\Support\Facades\DB;
 
 class PedidosController extends Controller
 {
@@ -80,5 +81,27 @@ class PedidosController extends Controller
     {
         $pedidos = pedidoPersonalizado::with('producto')->where('id_usuario', $id)->get();
         return response()->json($pedidos);
+    }
+
+    public function conteoEstados()
+    {
+        $conteoPorEstado = pedidoPersonalizado::select('estado', DB::raw('count(*) as total'))
+        ->groupBy('estado')
+        ->pluck('total', 'estado')
+        ->toArray();
+
+        return response()->json($conteoPorEstado);
+    }
+
+    public function agruparPorEstado(){
+        // Obtén los pedidos y agrúpalos por estado
+        $pedidosAgrupados = PedidoPersonalizado::with('producto')->get()->groupBy('estado');
+
+        // Convierte la colección en un array asociativo
+        $arrayAgrupado = $pedidosAgrupados->map(function ($pedidos) {
+            return $pedidos->toArray();
+        })->toArray();
+
+        return response()->json($arrayAgrupado);
     }
 }
