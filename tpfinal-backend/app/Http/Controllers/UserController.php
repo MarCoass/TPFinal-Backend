@@ -23,45 +23,46 @@ class UserController extends Controller
         $user = new User([
             'username' => $request->input('username'),
             'nombre' => $request->input('nombre'),
-            'apellido'=> $request->input('apellido'),
+            'apellido' => $request->input('apellido'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
             'num_telefono' => $request->input('num_telefono'),
-            'sets_favoritos'=>[],
+            'sets_favoritos' => [],
             'id_rol' => 2
 
         ]);
-        
+
 
         $user->save();
 
         return response()->json(['message' => 'Usuario registrado exitosamente']);
     }
 
-    public function obtenerListadoFavoritos(){
+    public function obtenerListadoFavoritos()
+    {
         $user = auth()->user();
         $productosController = new ProductosController();
-        $productos=[];
+        $productos = [];
         foreach ($user->sets_favoritos as $producto) {
             // $producto = json_decode($productoJSON, true);
             $productoInfo = $productosController->show($producto['id_producto']);
             if ($productoInfo) {
                 array_push($productos, $productoInfo);
             }
-        }    
+        }
         return response()->json($productos);
     }
 
-    public function agregarAFavoritos(Request $request){
+    public function agregarAFavoritos(Request $request)
+    {
         $user = auth()->user();
-         // Obtiene los productos guardados
-         $productos = $user->sets_favoritos;
-         if($productos != null){
+        // Obtiene los productos guardados
+        $productos = $user->sets_favoritos;
+        if ($productos != null) {
             //busca si ya existe el producto
             $indiceProducto = null;
-    
-            for ($i = 0; $i < sizeOf($productos); $i++)
-            {
+
+            for ($i = 0; $i < sizeOf($productos); $i++) {
                 if ($productos[$i]['id_producto'] == $request->input('id_producto')) {
                     $indiceProducto = $i;
                     break;
@@ -77,50 +78,52 @@ class UserController extends Controller
                 ];
                 $productos[] = $nuevoProducto;
             }
-
-         } else {
+        } else {
             $nuevoProducto = [
                 'id_producto' => $request->input('id_producto'),
             ];
             $productos[] = $nuevoProducto;
-         }
+        }
         // Pasa el array a JSON y guarda el nuevo valor
         $nuevosProductos = $productos;
         $user->sets_favoritos = $nuevosProductos;
 
         $user->save();
-  
-        return response()->json(['message' => 'Producto agregado a favoritos.', 'repetido'=> false], 200);
+
+        return response()->json(['message' => 'Producto agregado a favoritos.', 'repetido' => false], 200);
     }
 
-    public function eliminarDeFavoritos(Request $request){
-       //busca el carrito actual
-       $user = auth()->user();
+    public function eliminarDeFavoritos(Request $request)
+    {
+        //busca el carrito actual
+        $user = auth()->user();
 
-       //obtiene los productos guardados
-       $productos = $user->sets_favoritos;
+        //obtiene los productos guardados
+        $productos = $user->sets_favoritos;
 
-       //busca la posicion del producto en el carrito
-       // Busca el producto en el arreglo por su id_producto
-       $indiceProducto = null;
-       foreach ($productos as $indice => $producto) {
-           if ($producto['id_producto'] == $request->id_producto) {
-               $indiceProducto = $indice;
-               break;
-           }
-       }
-       if ($indiceProducto !== null) {
-           // Si se encuentra el producto, lo elimina del arreglo
-           
-       }
-       if ($indiceProducto !== null) {
-        // Si se encuentra el producto, lo elimina del arreglo
-        array_splice($productos, $indiceProducto, 1);
-        $user->sets_favoritos = $productos;
-       $user->save();
-        return  response()->json(['message' => 'Producto eliminado de favoritos'], 200);
-    } else {
-        return  response()->json(['message' => 'No se encontro el producto.']);
+        //busca la posicion del producto en el carrito
+        // Busca el producto en el arreglo por su id_producto
+        $indiceProducto = null;
+        foreach ($productos as $indice => $producto) {
+            if ($producto['id_producto'] == $request->id_producto) {
+                $indiceProducto = $indice;
+                break;
+            }
+        }
+        if ($indiceProducto !== null) {
+            // Si se encuentra el producto, lo elimina del arreglo
+
+        }
+        if ($indiceProducto !== null) {
+            // Si se encuentra el producto, lo elimina del arreglo
+            array_splice($productos, $indiceProducto, 1);
+            $user->sets_favoritos = $productos;
+            $user->save();
+            return  response()->json(['message' => 'Producto eliminado de favoritos'], 200);
+        } else {
+            return  response()->json(['message' => 'No se encontro el producto.']);
+        }
     }
-    }
+
+   
 }
