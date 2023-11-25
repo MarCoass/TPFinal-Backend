@@ -9,7 +9,7 @@ class ProveedorController extends Controller
 {
     //index
     public function index(){
-        $proveedores = proveedor::all();
+        $proveedores = proveedor::orderBy('nombre')->get();
         return response()->json($proveedores);
     }
 
@@ -36,14 +36,14 @@ class ProveedorController extends Controller
         $proveedor->direccion = $request->input('direccion');
         $proveedor->anotacion = $request->input('anotacion');
         $proveedor->save();
-        return response()->json(['Proveedor modificado correctamente', 200]);
+        return response()->json(['exito' => true, 'message' => 'Proveedor modificado correctamente.']);
     }
 
     //delete
     public function delete($id){
         $proveedor = proveedor::find($id);
         $proveedor->delete();
-        return response()->json(['Proveedor eliminado correctamente', 200]);
+        return response()->json(['exito' => true, 'message' => 'Proveedor eliminado correctamente.']);
     }
 
 }
