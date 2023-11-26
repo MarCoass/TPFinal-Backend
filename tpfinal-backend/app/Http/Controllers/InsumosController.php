@@ -51,7 +51,7 @@ class InsumosController extends Controller
 
         //para guardar la categoria
         $categoria = categoriaInsumo::find($request->input('id_categoria'));
-        $insumo->CategoriaInsumo()->associate($categoria);
+        $insumo->Categoria()->associate($categoria);
 
         $insumo->save();
         return response()->json(['exito' => true, 'message' => 'Datos guardados exitosamente'], 200);
@@ -60,7 +60,6 @@ class InsumosController extends Controller
     public function delete($id)
     {
         $insumo = insumo::find($id);
-        //esto esta feo, modificar
 
         //reviso si se usa en un insumoProducto
         $existeInsumoProducto = insumoProducto::where('id_insumo', $id)->exists();
