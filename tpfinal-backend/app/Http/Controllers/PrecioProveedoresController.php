@@ -32,7 +32,7 @@ class PrecioProveedoresController extends Controller
     public function delete($id){
         $precio = precioProveedor::find($id);
         $precio->delete();
-        return response()->json(['Precio eliminado correctamente', 200]);
+        return response()->json(['exito' => true, 'message'=>'Precio eliminado correctamente', 200]);
     }
 
     //show
