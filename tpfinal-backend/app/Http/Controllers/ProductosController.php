@@ -244,11 +244,9 @@ class ProductosController extends Controller
         $message = '¡Se repuso stock de uno de tus productos favoritos! El set '. $producto->nombre. ' ya está disponible en la tienda para que lo compres';
         foreach ($usuarios as $usuario) {
             $to = $usuario->email;
-            Mail::raw($message, function ($mail) use ($to, $subject) {
+            Mail::send('emails.mailReposicionStock', ['usuario' => $usuario, 'producto' => $producto], function ($mail) use ($to, $subject) {
                 $mail->to($to)->subject($subject);
             });
-            // Envía un correo al usuario
-            // Mail::to($usuario->email)->send(new StockReposicionMail($producto));
         }
     }
 }

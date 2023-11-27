@@ -23,9 +23,9 @@ class UsersTableSeeder extends Seeder
             'id_rol' => 1
         ]);
         User::create([
-            'username' => 'Cliente',
-            'nombre' => 'Nombre cliente',
-            'apellido' => 'Apellido cliente',
+            'username' => 'Lady bug',
+            'nombre' => 'Marinette',
+            'apellido' => 'Dupain-cheng',
             'email' => 'cliente@correo.com',
             'password' => 'cliente',
             'sets_favoritos'=>
