@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Ciudad;
 use App\Models\producto;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\set;
 use App\Http\Controllers\InsumoProductoController;
 use App\Models\insumoProducto;
 use App\Models\insumo;
+use Illuminate\Support\Facades\Mail;
 
 class ProductosController extends Controller
 {
@@ -191,6 +193,8 @@ class ProductosController extends Controller
         }
         $producto->stock = $stockNuevo;
         $producto->save();
+        $funca = $this->notificarReposicionStock($id);
+        // return response()->json(['insumos_faltantes' => $funca, 'exito' => false]);
         return response()->json(['exito' => true, 200]);
     }
 
@@ -228,5 +232,23 @@ class ProductosController extends Controller
         $producto = producto::find($productoComprado['id_producto']);
         $producto->stock = $producto->stock - $productoComprado['cantidad'];
         $producto->save();
+    }
+
+    public function notificarReposicionStock($idProducto){
+        // $users = user::all();
+        // $usuarios = User::whereJsonContains('sets_favoritos', $idProducto);
+        $usuarios = User::where('sets_favoritos', 'like', '%"id_producto":' . $idProducto . '%')->get();
+        $producto = producto::find($idProducto);
+        // return $usuariosConProducto;
+        $subject = 'Reposición de '. $producto->nombre;
+        $message = '¡Se repuso stock de uno de tus productos favoritos! El set '. $producto->nombre. ' ya está disponible en la tienda para que lo compres';
+        foreach ($usuarios as $usuario) {
+            $to = $usuario->email;
+            Mail::raw($message, function ($mail) use ($to, $subject) {
+                $mail->to($to)->subject($subject);
+            });
+            // Envía un correo al usuario
+            // Mail::to($usuario->email)->send(new StockReposicionMail($producto));
+        }
     }
 }
