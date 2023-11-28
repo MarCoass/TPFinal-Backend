@@ -11,7 +11,7 @@ class CategoriaInsumosController extends Controller
 
     public function index()
     {
-        $categorias = categoriaInsumo::all();
+        $categorias = categoriaInsumo::orderBy('id')->get();
         return response()->json($categorias);
     }
 
