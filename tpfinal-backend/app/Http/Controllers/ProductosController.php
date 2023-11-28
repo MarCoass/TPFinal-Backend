@@ -26,8 +26,7 @@ class ProductosController extends Controller
                     $subquery->where('id_categoria', '!=', 4);
                 })
                     ->orWhereDoesntHave('set');
-            })
-            ->get();
+            })->orderBy('nombre')->get();
         return response()->json($productos);
     }
 
@@ -160,13 +159,13 @@ class ProductosController extends Controller
         if ($set) {
             $setController = new SetController();
             $setDelete = $setController->delete($set->id);
-            return response()->json(['message' => 'Eliminado exitosamente'], 200);
+            return response()->json(['exito' => true, 'message' => 'Precio eliminado correctamente', 200]);
         } else {
             $producto = producto::find($id);
             $producto->delete();
         }
 
-        return response()->json(['message' => 'Eliminado exitosamente'], 200);
+        return response()->json(['exito' => true, 'message' => 'Precio eliminado correctamente', 200]);
     }
 
     public function actualizarStock(Request $request, $id)
@@ -227,7 +226,8 @@ class ProductosController extends Controller
     }
 
     //esta funcion obtiene por parámtero el array de productos del carrito y resta el stock correspondiente al realizar una compra
-    public function restarStockCompra($productoComprado){
+    public function restarStockCompra($productoComprado)
+    {
         // dd('entra a restar Stock');
         $producto = producto::find($productoComprado['id_producto']);
         $producto->stock = $producto->stock - $productoComprado['cantidad'];
