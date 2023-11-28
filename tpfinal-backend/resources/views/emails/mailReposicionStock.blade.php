@@ -52,13 +52,37 @@
         }
 
         .logo{
-            color:#BC95D4;
+            background-color:#BC95D4;
             text-align: start; 
         }
 
-        .logo-container{
-            /* display:flex;
-            text-align: left; */
+        @media  (max-width: 600px) {
+        /* Aplicar estilos específicos cuando el ancho de la pantalla sea de al menos 600px */
+            .product-info {
+                width: 60%; /* Puedes ajustar este valor según tus necesidades */
+            }
+            .titulo{
+                font-size:30px;
+            }
+            .subtitle{
+                font-size:20px;
+            }
+            .logo{
+                max-height:5rem;
+            }
+        }
+
+        @media (max-width: 1000px){
+            .product-info {
+                width: 60%; /* Puedes ajustar este valor según tus necesidades */
+            }
+            /* .imagen {
+            width:auto;
+            max-height: 50%;
+            } */
+            .logo{
+                max-height:5rem;
+            }
         }
 
         .content {
