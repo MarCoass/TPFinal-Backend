@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\CategoriaSet;
 use Illuminate\Http\Request;
 use App\Models\Set;
@@ -13,7 +14,8 @@ class CategoriaSetController extends Controller
         return response()->json($categorias);
     }
 
-    public function show($id){
+    public function show($id)
+    {
         $categoria = categoriaSet::find($id);
         return response()->json($categoria);
     }

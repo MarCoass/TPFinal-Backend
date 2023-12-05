@@ -15,7 +15,7 @@ class InsumosController extends Controller
 
     public function index()
     {
-        $insumos = insumo::with('preciosProveedores.proveedor', 'categoria')->get();
+        $insumos = insumo::with('preciosProveedores.proveedor', 'categoria')->orderBy('nombre')->get();
         return response()->json($insumos);
     }
 
