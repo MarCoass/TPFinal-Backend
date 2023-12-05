@@ -27,7 +27,23 @@ class precioProveedorTableSeeder extends Seeder
         precioProveedor::create([
             'id_proveedor' => '1',
             'id_insumo' => '1',
-            'precio' => '3500'
+            'precio' => '500'
+        ]);
+        //acohol pad
+        precioProveedor::create([
+            'id_proveedor' => '1',
+            'id_insumo' => '23',
+            'precio' => '500'
+        ]);
+        precioProveedor::create([
+            'id_proveedor' => '2',
+            'id_insumo' => '23',
+            'precio' => '300'
+        ]);
+        precioProveedor::create([
+            'id_proveedor' => '3',
+            'id_insumo' => '23',
+            'precio' => '600'
         ]);
     }
 }

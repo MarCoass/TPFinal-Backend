@@ -220,5 +220,14 @@ class ProductosTableSeeder extends Seeder
             'url_imagen' => '/productos/personalizada5.jpg', 
             'stock'=> 0
         ]);
+        producto::create([//24
+            'nombre'=> 'Kit de aplicacion', 
+            'descripcion' => 'Kit de aplicacion para press on.', 
+            'id_ciudad'=> 1, 
+            'precio'=> 500, 
+            'estado'=> 0, 
+            'url_imagen' => '/productos/kit-aplicacion.png', 
+            'stock'=> 50
+        ]);
     }
 }

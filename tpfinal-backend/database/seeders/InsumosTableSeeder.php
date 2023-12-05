@@ -227,5 +227,25 @@ class InsumosTableSeeder extends Seeder
             'stock_minimo' => '1',
             'tags' => 'kit',
         ]);
+        Insumo::create([
+            'nombre' => 'Lima chica',
+            'descripcion' => 'Lima para kits de aplicacion',
+            'marca' => 'City Girl',
+            'stock' => '50',
+            'estado' => '1',
+            'id_categoria' => '1',
+            'stock_minimo' => '1',
+            'tags' => 'kit',
+        ]);
+        Insumo::create([
+            'nombre' => 'Alcohol pad',
+            'descripcion' => 'Pad remojado el alcohol.',
+            'marca' => 'City Girl',
+            'stock' => '50',
+            'estado' => '1',
+            'id_categoria' => '5',
+            'stock_minimo' => '1',
+            'tags' => 'kit',
+        ]);
     }
 }

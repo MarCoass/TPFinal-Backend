@@ -70,8 +70,8 @@ class PedidosController extends Controller
         $pedido->save();
         if ($request->input('estado') == 1 || $request->input('estado') == 5) {
             $mensaje = new WhatsappController();
-            /*   $respuestaMensaje = $mensaje->enviarMensaje($id, $request->input('estado')); */
-            $respuestaMensaje = 'No mando el mensaje para no sumar mas dolares';
+              $respuestaMensaje = $mensaje->enviarMensaje($id, $request->input('estado'));
+            /* $respuestaMensaje = 'No mando el mensaje para no sumar mas dolares'; */
         }
         return response()->json(['exito' => true, 'message' => 'Estado actualizado correctamente.']);
     }
